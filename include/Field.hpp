@@ -1,33 +1,21 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
-
-struct Coordinate {
-    int x;
-    int y;
-}
-
-enum class CellState {
-    Hidden,
-    Revealed
-};
-
-struct Cell {
-    Coordinate coordinate;
-    CellState state; 
-};
+#include "Ship.hpp"
+#include "Structs.hpp"
 
 class Field {
     private:
         int rows;
         int columns;
-        std::vector<std::vector<Cell>>field;
+        std::vector<Cell*>field;
     public:
         Field(int rows, int columns);
         //methods
-        void initField();
-        void placeShip(Coordinate coordinate);
-        void placeShipRandomly();
+        // void initField();
+        bool placeShip(Ship ship, Coordinate coordinate);
+        void placeShipRandomly(Ship ship);
         void attack(Coordinate coordinate);
         void printField();
 };
