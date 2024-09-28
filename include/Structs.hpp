@@ -10,7 +10,7 @@ enum class CellValue : char {
   Hit = 'X',
   Destroyed = '#',
   WaterHidden = '~',
-  WaterRevealed = '.'
+  WaterRevealed = '*'
 };
 
 struct Coordinate {

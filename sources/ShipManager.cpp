@@ -43,9 +43,9 @@ void ShipManager::checkHealth(Coordinate coordinate) {
     std::cout << "Coordinate is empty" << std::endl;
 }
 
-void ShipManager::setHealth(Coordinate coordinate) {
-    coordinate.x++;
-}
+// void ShipManager::setHealth(Coordinate coordinate) {
+//     coordinate.x++;
+// }
 
 void ShipManager::printShips() const{
     for (auto& ship : this->ships) {

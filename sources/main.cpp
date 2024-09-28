@@ -5,11 +5,12 @@
 int main() {
     Field game = Field(10, 10);
     ShipManager* ships = new ShipManager;
+    // Ship* ship = new Ship(3);
     game.initField(ships);
-    game.attack({0, 0});
-    game.attack({0, 0});
-    game.attack({1, 1});
-    game.attack({1, 1});
+    for (int i = 0; i < 10; i++) {
+        game.attack({i, 4});
+        game.attack({i, 7});
+    }
     game.printField();
     return 0;
 }

@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 #include "Ship.hpp"
 #include "ShipManager.hpp"
 #include "Structs.hpp"
@@ -14,9 +16,11 @@ class Field {
     public:
         Field(int rows, int columns);
         //methods
-        void checkCoordinates(Coordinate coordinate);
-
+        bool checkCoordinates(Coordinate coordinate);
+        bool isShipAt(Coordinate coordinate);
+        
         void initField(ShipManager* ships);
+        
         bool placeShip(Ship* ship, Coordinate coordinate);
         void placeShipRandomly(Ship* ship);
         

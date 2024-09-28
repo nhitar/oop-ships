@@ -8,25 +8,23 @@ Field::Field(int rows, int columns) : rows(rows), columns(columns) {
     }
 }
 
-void Field::checkCoordinates(Coordinate coordinate) {
+bool Field::checkCoordinates(Coordinate coordinate) {
     if (coordinate.x < 0 || coordinate.x >= this->columns || coordinate.y < 0 || coordinate.y >= this->rows) {
-        throw std::out_of_range("Coordinates are out of range");
+        return true;
     }
+    return false;
 }
 
 void Field::initField(ShipManager* fleet) {
-    //ДОБАВИТЬ ПРОВЕРКУ НА ОТСУТСВИЕ КОРАБЛЯ НА ЯЧЕЙКЕ
-    std::vector<Coordinate> startCoordinates = {{0, 0}, {6, 6}, {5, 0}, {3, 9}, {4, 5}, {0, 5}, {3, 3}, {6, 3}, {8, 3}, {2, 7}};
-    int i = 0;
-     std::vector<Ship*> ships = fleet->getShips();
+    std::vector<Ship*> ships = fleet->getShips();
     for (auto& ship : ships) {
-        if (i == 1 || i == 5) {
-            ship->changeOrientation();
-        }
-        ship->setCoordinate(startCoordinates[i]);
-        this->placeShip(ship, startCoordinates[i]);
-        ++i;
+        this->placeShipRandomly(ship);
     }
+}
+
+bool Field::isShipAt(Coordinate coordinate) {
+    Cell* cell = this->field[this->columns*coordinate.y + coordinate.x];
+    return (cell->value == CellValue::ShipPart || cell->value == CellValue::Hit || cell->value == CellValue::Destroyed);
 }
 
 bool Field::placeShip(Ship* ship, Coordinate coordinate) {
@@ -41,6 +39,11 @@ bool Field::placeShip(Ship* ship, Coordinate coordinate) {
             return false;
         }
         for (int i = 0; i < ship->getLength(); i++) {
+            if (this->isShipAt({coordinate.x + i, coordinate.y})) {
+                return false;
+            }
+        }
+        for (int i = 0; i < ship->getLength(); i++) {
             field[coordinate.y*this->columns + coordinate.x + i]->value = CellValue::ShipPart;
         }
     } else {
@@ -51,19 +54,50 @@ bool Field::placeShip(Ship* ship, Coordinate coordinate) {
             return false;
         }
         for (int i = 0; i < ship->getLength(); i++) {
-            
-            field[coordinate.y*this->columns + i*this->rows + coordinate.x]->value = CellValue::ShipPart;
+            if (this->isShipAt({coordinate.x, coordinate.y + i})) {
+                return false;
+            }
+        }
+        for (int i = 0; i < ship->getLength(); i++) {
+            field[(coordinate.y + i)*this->columns + coordinate.x]->value = CellValue::ShipPart;
         }
     }
     return true;
 }
 
-// void Field::placeShipRandomly(Ship* ship) {
-//     ///////////////////////////////
-// }
+void Field::placeShipRandomly(Ship* ship) {
+    std::srand(static_cast<unsigned int>(std::time(0)));
+    int randomX, randomY, randOrientation;
+    int j = 0;
+    while(true) {
+        randomX = std::rand() % this->columns;
+        randomY = std::rand() % this->rows;
+        randOrientation = std::rand() % 2;
+
+        if (randOrientation == 1) {
+            ship->changeOrientation();
+        }
+        
+        if (this->placeShip(ship, {randomX, randomY})) {
+            ship->setCoordinate({randomX, randomY});
+            return;
+        } else {
+            j++;
+        }
+
+        if (j > 100) {
+            std::cout << "Error: Unable to place ship randomly" << std::endl;
+            return;
+        }
+    }
+}
 
 void Field::attack(Coordinate coordinate) {
-    this->checkCoordinates(coordinate);
+    if (this->checkCoordinates(coordinate)) {
+        std::cout << "Error: Invalid coordinates" << std::endl;
+        return;
+    }
+    
     //ДОБАВИТЬ ОБНОВЛЕНИЕ УРОНА ДЛЯ СЕГМЕНТА
     Cell* fieldCell = this->field[this->columns*coordinate.y + coordinate.x];
     switch (fieldCell->value) {
@@ -84,29 +118,36 @@ void Field::attack(Coordinate coordinate) {
 }
 
 void Field::printField() {
-    std::cout << std::endl << "-----------------------------------------" << std::endl;
+    for (int i = 0; i < this->rows; i++) {
+        std::cout << "\033[30m" << "x---";
+    }
+    std::cout << "\033[30m" << "x" << std::endl;
     for (int y = 0; y < this->rows; y++) {
-        std::cout << "| ";
+        std::cout << "\033[30m" << "| ";
         for (int x = 0; x < this->columns; x++) {
             switch (field[y*this->rows + x]->value) {
                 case CellValue::ShipPart:
-                    std::cout << "S";
+                    std::cout << "\033[32m" << "S";
                     break;
                 case CellValue::Hit:
-                    std::cout << "X";
+                    std::cout << "\033[31m" << "X";
                     break;
                 case CellValue::Destroyed:
-                    std::cout << "#";
+                    std::cout << "\033[30m" << "#";
                     break;
                 case CellValue::WaterHidden:
-                    std::cout << "~";
+                    std::cout << "\033[34m" << "~";
                     break;
                 case CellValue::WaterRevealed:
-                    std::cout << ".";
+                    std::cout << "\033[36m" << "*";
                     break;
             }
-            std::cout << " | ";
+            std::cout << "\033[30m" << " | ";
         }
-        std::cout << std::endl << "-----------------------------------------" << std::endl;
+        std::cout << std::endl;
+        for (int i = 0; i < this->rows; i++) {
+            std::cout << "\033[30m" << "x---";
+        }
+        std::cout << "\033[30m" << "x" << std::endl;
     }
 }
