@@ -20,6 +20,13 @@ std::vector<Segment*> Ship::getSegments() const {
     return this->segments;
 }
 
+bool Ship::isHorizontal() const {
+    if (this->orientation == Orientation::Horizontal) {
+        return true;
+    }
+    return false;
+}
+
 void Ship::changeOrientation() {
     switch (this->orientation) {
         case Orientation::Horizontal:
@@ -54,6 +61,20 @@ bool Ship::isDestroyed() const {
     return true;
 }
 
+void Ship::setCoordinate(Coordinate coordinate) {
+    int i = 0;
+    for (auto& segment : this->segments) {
+        if (this->orientation == Orientation::Horizontal) {
+            segment->coordinate.x = coordinate.x + i;
+            segment->coordinate.y = coordinate.y;
+        } else {
+            segment->coordinate.x = coordinate.x;
+            segment->coordinate.y = coordinate.y + i;
+        }
+        ++i;
+    }
+}
+
 void Ship::printStatus() const {
     std::cout << "length: " << this->length  << std::endl;
     switch(this->orientation) {
@@ -65,7 +86,9 @@ void Ship::printStatus() const {
             break;
     }
     std::cout << "Segments health:" << std::endl;
-    std::vector<Segment*> segments = this->getSegments();
-    for (auto segment : segments)
-        std::cout << segment << std::endl;
+    //ДОПИСАТЬ
+
+    // std::vector<Segment*> segments = this->getSegments();
+    // for (auto segment : segments)
+    //     std::cout << segment. << std::endl;
 }

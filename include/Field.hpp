@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "Ship.hpp"
+#include "ShipManager.hpp"
 #include "Structs.hpp"
 
 class Field {
@@ -13,9 +14,13 @@ class Field {
     public:
         Field(int rows, int columns);
         //methods
-        // void initField();
-        bool placeShip(Ship ship, Coordinate coordinate);
-        void placeShipRandomly(Ship ship);
+        void checkCoordinates(Coordinate coordinate);
+
+        void initField(ShipManager* ships);
+        bool placeShip(Ship* ship, Coordinate coordinate);
+        void placeShipRandomly(Ship* ship);
+        
         void attack(Coordinate coordinate);
+
         void printField();
 };

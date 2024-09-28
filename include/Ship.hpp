@@ -31,9 +31,14 @@ class Ship {
         //methods
         int getLength() const;
         std::vector<Segment*> getSegments() const;
+        bool isHorizontal() const;
         void changeOrientation();
+
         void applyDamage(Coordinate coordinate);
         bool isDestroyed() const;
+        
+        void setCoordinate(Coordinate coordinate);
+        
         void printStatus() const;
         
 };
