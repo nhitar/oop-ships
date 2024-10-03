@@ -1,9 +1,12 @@
 #pragma once
 
-enum class CellState {
-    Hidden,
-    Revealed
-};
+#include "Ship.hpp"
+
+enum class Orientation { Horizontal, Vertical };
+
+enum class SegmentHealth { Untouched, Damaged, Destroyed };
+
+enum class CellState { Hidden, Revealed };
 
 enum class CellValue : char {
   ShipPart = 'S',
@@ -18,8 +21,14 @@ struct Coordinate {
     int y;
 };
 
+struct Segment {
+    Coordinate coordinate;
+    SegmentHealth health;
+};
+
 struct Cell {
     Coordinate coordinate;
     CellState state;
     CellValue value;
+    Segment* segment = nullptr;
 };

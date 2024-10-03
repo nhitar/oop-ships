@@ -1,8 +1,8 @@
 #pragma once
 
+#include "Ship.hpp"
 #include <iostream>
 #include <vector>
-#include "Ship.hpp"
 
 class ShipManager {
     private:

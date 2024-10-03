@@ -1,24 +1,8 @@
 #pragma once
 
+#include "Structs.hpp"
 #include <iostream>
 #include <vector>
-#include "Structs.hpp"
-
-enum class Orientation {
-    Horizontal,
-    Vertical
-};
-
-enum class SegmentHealth {
-    Untouched,
-    Damaged,
-    Destroyed  
-};
-
-struct Segment {
-    SegmentHealth health;
-    Coordinate coordinate;
-};
 
 class Ship {
     private:

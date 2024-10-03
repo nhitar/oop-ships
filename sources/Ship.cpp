@@ -4,6 +4,10 @@ Ship::Ship(int length) : length(length) {
     if (length < 1 || length > 4) {
         throw std::invalid_argument("Length of ship must be between 1 and 4");
     }
+    this->orientation = Orientation::Horizontal;
+    for (int i = 0; i < length; i++) {
+        this->segments.push_back(new Segment());
+    }
 }
 
 Ship::~Ship() {
@@ -86,9 +90,19 @@ void Ship::printStatus() const {
             break;
     }
     std::cout << "Segments health:" << std::endl;
-    //ДОПИСАТЬ
 
-    // std::vector<Segment*> segments = this->getSegments();
-    // for (auto segment : segments)
-    //     std::cout << segment. << std::endl;
+    std::vector<Segment*> segments = this->getSegments();
+    for (auto segment : segments) {
+        switch(segment->health) {
+            case SegmentHealth::Untouched:
+                std::cout << "Untouched" << std::endl;
+                break;
+            case SegmentHealth::Damaged:
+                std::cout << "Damaged" << std::endl;
+                break;
+            case SegmentHealth::Destroyed:
+                std::cout << "Destroyed" << std::endl;
+                break;
+        }    
+    }
 }
