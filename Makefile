@@ -7,7 +7,7 @@ LDFLAGS = -lm
 all: game
 
 game: $(OBJECTS)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o game
+	$(CC) $(OBJECTS) $(LDFLAGS) -o game && rm -rf sources/*.o
 
 sources/%.o : sources/%.cpp
 	$(CC) $(CFLAGS) -c $< -o $@

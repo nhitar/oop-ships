@@ -8,6 +8,50 @@ Field::Field(int rows, int columns) : rows(rows), columns(columns) {
     }
 }
 
+//КОПИРУЮЩИЙ КОНСТРУКТОР
+Field::Field(const Field& other) : rows(other.rows), columns(other.columns), field(other.field) {}
+
+//КОПИРУЮЩИЙ ОПЕРАТОР ПРИСВАИВАНИЯ
+Field& Field::operator=(const Field& other) {
+    if (this != &other) {
+        rows = other.rows;
+        columns = other.columns;
+        field = other.field;
+    }
+    return *this;
+}
+
+//ПЕРЕМЕЩАЮЩИЙ КОНСТРУКТОР
+Field::Field(Field&& other) : rows(other.rows), columns(other.columns), field(std::move(other.field)){
+    other.rows = 0;
+    other.columns = 0;
+    other.field.clear();
+}
+
+//ПЕРЕМЕЩАЮЩИЙ ОПЕРАТОР ПРИСВАИВАНИЯ
+Field& Field::operator=(Field&& other) {
+    if (this != &other) {
+        rows = other.rows;
+        columns = other.columns;
+        field = std::move(other.field);
+        other.rows = 0;
+        other.columns = 0;
+    }
+    return *this;
+}
+
+int Field::getRows() const {
+    return this->rows;
+}
+
+int Field::getColumns() const {
+    return this->columns;
+}
+
+std::vector<Cell> Field::getField() const {
+    return this->field;
+}
+
 bool Field::checkCoordinates(Coordinate coordinate) {
     if (coordinate.x < 0 || coordinate.x >= this->columns || coordinate.y < 0 || coordinate.y >= this->rows) {
         return true;
@@ -35,6 +79,12 @@ bool Field::checkCoordinatesAround(Coordinate coordinate) {
 void Field::initField(std::vector<Ship*> fleet) {
     for (auto& ship : fleet) {
         this->placeShipRandomly(ship);
+    }
+}
+
+void Field::revealCells() {
+    for (auto& cell : this->field) {
+        cell.state = CellState::Revealed;
     }
 }
 
@@ -68,39 +118,43 @@ bool Field::placeShip(Ship* ship, Coordinate coordinate) {
             field[coordinate.y*this->columns + coordinate.x + i].segment = ship->getSegments()[i];
             field[coordinate.y*this->columns + coordinate.x + i].value = CellValue::ShipPart;
         }
-    } else {
-        if (coordinate.y + ship->getLength() > this->rows) {
-            return false;
-        }
-        if (coordinate.x >= this->columns) {
-            return false;
-        }
+        return true;
+    }
+    //Vetrically
+    if (coordinate.y + ship->getLength() > this->rows) {
+        return false;
+    }
+    if (coordinate.x >= this->columns) {
+        return false;
+    }
 
-        for (int i = 0; i < ship->getLength(); i++) {
-            if (checkCoordinatesAround({coordinate.x, coordinate.y + i})) {
-                return false;
-            }
-            if (this->isShipAt({coordinate.x, coordinate.y + i})) {
-                return false;
-            }
+    for (int i = 0; i < ship->getLength(); i++) {
+        if (checkCoordinatesAround({coordinate.x, coordinate.y + i})) {
+            return false;
         }
-        for (int i = 0; i < ship->getLength(); i++) {
-            ship->getSegments()[i]->coordinate = Coordinate{coordinate.x + i, coordinate.y};
-            field[(coordinate.y + i)*this->columns + coordinate.x].segment = ship->getSegments()[i];
-            field[(coordinate.y + i)*this->columns + coordinate.x].value = CellValue::ShipPart;
+        if (this->isShipAt({coordinate.x, coordinate.y + i})) {
+            return false;
         }
+    }
+    for (int i = 0; i < ship->getLength(); i++) {
+        ship->getSegments()[i]->coordinate = Coordinate{coordinate.x + i, coordinate.y};
+        field[(coordinate.y + i)*this->columns + coordinate.x].segment = ship->getSegments()[i];
+        field[(coordinate.y + i)*this->columns + coordinate.x].value = CellValue::ShipPart;
     }
     return true;
 }
 
 void Field::placeShipRandomly(Ship* ship) {
-    std::srand(static_cast<unsigned int>(std::time(0)));
-    int randomX, randomY, randOrientation;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> disX(0, columns - 1);
+    std::uniform_int_distribution<> disY(0, rows - 1);
+    std::uniform_int_distribution<> disOrientation(0, 1);
     int j = 0;
     while(true) {
-        randomX = std::rand() % this->columns;
-        randomY = std::rand() % this->rows;
-        randOrientation = std::rand() % 2;
+        int randomX = disX(gen);
+        int randomY = disY(gen);
+        int randOrientation = disOrientation(gen);
 
         if (randOrientation == 1) {
             ship->changeOrientation();
@@ -109,9 +163,8 @@ void Field::placeShipRandomly(Ship* ship) {
         if (this->placeShip(ship, {randomX, randomY})) {
             ship->setCoordinate({randomX, randomY});
             return;
-        } else {
-            j++;
         }
+        j++;
 
         if (j > 100) {
             std::cout << "Error: Unable to place ship randomly" << std::endl;
@@ -146,43 +199,40 @@ void Field::attack(Coordinate coordinate) {
     }
 }
 
-void Field::printField() {
-    for (int i = 0; i < this->rows; i++) {
-        std::cout << "\033[30m" << "x---";
+Coordinate Field::attackRandomly() {
+    std::srand(static_cast<unsigned int>(std::time(0)));
+    int randomX, randomY;
+    int j = 0;
+    while(true) {
+        randomX = std::rand() % this->columns;
+        randomY = std::rand() % this->rows;
+        
+        if (!this->checkCoordinates({randomX, randomY})) {
+            this->attack({randomX, randomY});
+            return {randomX, randomY};
+        }
+        j++;
+
+        if (j > 100) {
+            std::cout << "Error: Unable to attack randomly" << std::endl;
+            return {-1, -1};
+        }
     }
-    std::cout << "\033[30m" << "x" << std::endl;
-    for (int y = 0; y < this->rows; y++) {
-        std::cout << "\033[30m" << "| ";
-        for (int x = 0; x < this->columns; x++) {
-            if (field[y*this->rows + x].state == CellState::Revealed) {
-                switch (field[y*this->rows + x].value) {
-                    case CellValue::ShipPart:
-                        std::cout << "\033[32m" << "S";
-                        break;
-                    case CellValue::Hit:
-                        std::cout << "\033[1;31m" << "X";
-                        break;
-                    case CellValue::Destroyed:
-                        std::cout << "\033[30m" << "#";
-                        break;
-                    case CellValue::WaterHidden:
-                        std::cout << "\033[34m" << "~";
-                        break;
-                    case CellValue::WaterRevealed:
-                        std::cout << "\033[1;35m" << "*";
-                        break;
+}
+
+void Field::revealCoordinatesAround(Ship* ship) {
+    for (auto& segment : ship->getSegments()) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (!checkCoordinates({segment->coordinate.x + i, segment->coordinate.y + j})) {
+                    Cell& fieldCell = this->field[this->columns*(segment->coordinate.y + j) + segment->coordinate.x + i];
+                    if (fieldCell.value != CellValue::WaterHidden) {
+                        continue;
+                    }
+                    fieldCell.state = CellState::Revealed;
+                    fieldCell.value = CellValue::WaterRevealed;
                 }
-                
-            } else {
-                std::cout << "\033[1;34m" << "~";
             }
-            std::cout << "\033[30m" << " | ";
         }
-        std::cout << std::endl;
-        for (int i = 0; i < this->rows; i++) {
-            std::cout << "\033[30m" << "x---";
-        }
-        std::cout << "\033[30m" << "x" << std::endl;
     }
-    std::cout << "\033[0m";
 }

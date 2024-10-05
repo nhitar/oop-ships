@@ -12,11 +12,13 @@ class ShipManager {
         ~ShipManager();
         //methods
         std::vector<Ship*> getShips() const;
+        Ship* getShip(Coordinate coordinate) const;
 
         void addShip(int length);
-        
-        void checkHealth(Coordinate coordinate);
-        void setHealth(Coordinate coordinate);
+
+        //УДАЛИТЬ
+        // void checkHealth(Coordinate coordinate);
+        // void setHealth(Coordinate coordinate);
         
         void printShips() const;
 };

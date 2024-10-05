@@ -1,7 +1,7 @@
 #include "../include/Ship.hpp"
 
 Ship::Ship(int length) : length(length) {
-    if (length < 1 || length > 4) {
+    if (length < 0 || length > 4) {
         throw std::invalid_argument("Length of ship must be between 1 and 4");
     }
     this->orientation = Orientation::Horizontal;
@@ -32,14 +32,11 @@ bool Ship::isHorizontal() const {
 }
 
 void Ship::changeOrientation() {
-    switch (this->orientation) {
-        case Orientation::Horizontal:
-            this->orientation = Orientation::Vertical;
-            break;
-        case Orientation::Vertical:
-            this->orientation = Orientation::Horizontal;
-            break;
+    if (this->orientation == Orientation::Horizontal) {
+        this->orientation = Orientation::Vertical;
+        return;
     }
+    this->orientation = Orientation::Horizontal;
 }
 
 void Ship::applyDamage(Coordinate coordinate) {

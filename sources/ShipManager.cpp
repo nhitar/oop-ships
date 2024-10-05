@@ -16,32 +16,43 @@ std::vector<Ship*> ShipManager::getShips() const {
     return this->ships;
 }
 
+Ship* ShipManager::getShip(Coordinate coordinate) const {
+    for (auto& ship : this->ships) {
+        for (auto& segment : ship->getSegments()) {
+            if (segment->coordinate.x == coordinate.x && segment->coordinate.y == coordinate.y) {
+                return ship;
+            }
+        }
+    }
+    return new Ship(0);
+}
+
 void ShipManager::addShip(int length) {
     this->ships.push_back(new Ship(length));
 }
 
-void ShipManager::checkHealth(Coordinate coordinate) {
-    for (auto& ship : this->ships) {
-        std::vector<Segment*> segments = ship->getSegments();
-        for (auto& segment : segments) {
-            if (segment->coordinate.x == coordinate.x && segment->coordinate.y == coordinate.y) {
-                switch(segment->health) {
-                    case SegmentHealth::Untouched:
-                        std::cout << "Segment is untouched" << std::endl;
-                        break;
-                    case SegmentHealth::Damaged:
-                        std::cout << "Segment is damaged" << std::endl;
-                        break;
-                    case SegmentHealth::Destroyed:
-                        std::cout << "Segment is destroyed" << std::endl; 
-                        break;
-                }
-                return;
-            }
-        }
-    }
-    std::cout << "Coordinate is empty" << std::endl;
-}
+// void ShipManager::checkHealth(Coordinate coordinate) {
+//     for (auto& ship : this->ships) {
+//         std::vector<Segment*> segments = ship->getSegments();
+//         for (auto& segment : segments) {
+//             if (segment->coordinate.x == coordinate.x && segment->coordinate.y == coordinate.y) {
+//                 switch(segment->health) {
+//                     case SegmentHealth::Untouched:
+//                         std::cout << "Segment is untouched" << std::endl;
+//                         break;
+//                     case SegmentHealth::Damaged:
+//                         std::cout << "Segment is damaged" << std::endl;
+//                         break;
+//                     case SegmentHealth::Destroyed:
+//                         std::cout << "Segment is destroyed" << std::endl; 
+//                         break;
+//                 }
+//                 return;
+//             }
+//         }
+//     }
+//     std::cout << "Coordinate is empty" << std::endl;
+// }
 
 // void ShipManager::setHealth(Coordinate coordinate) {
 //     coordinate.x++;
