@@ -7,13 +7,12 @@
 #include <vector>
 #include <cstdlib>
 #include <random>
-#include <ctime>
 
 class Field {
     private:
         int rows;
         int columns;
-        std::vector<Cell>field;
+        std::vector<Cell> field;
     public:
         Field(int rows, int columns);
         Field(const Field& other);
@@ -21,7 +20,7 @@ class Field {
         Field(Field&& other);
         Field& operator=(Field&& other);
 
-        //methods
+        // methods
         int getRows() const;
         int getColumns() const;
         std::vector<Cell> getField() const;
@@ -30,14 +29,13 @@ class Field {
         bool checkCoordinatesAround(Coordinate coordinate);
         bool isShipAt(Coordinate coordinate);
         
-        void initField(std::vector<Ship*> ships);
-        void revealCells();
-        
         bool placeShip(Ship* ship, Coordinate coordinate);
         void placeShipRandomly(Ship* ship);
+        void initField(std::vector<Ship*> ships);
         
-        void attack(Coordinate coordinate);
+        bool attack(Coordinate coordinate);
         Coordinate attackRandomly();
 
+        void revealCells();
         void revealCoordinatesAround(Ship* ship);
 };

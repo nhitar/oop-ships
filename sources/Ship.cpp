@@ -39,20 +39,6 @@ void Ship::changeOrientation() {
     this->orientation = Orientation::Horizontal;
 }
 
-void Ship::applyDamage(Coordinate coordinate) {
-    for (auto& segment : this->segments) {
-        if (segment->coordinate.x == coordinate.x && segment->coordinate.y == coordinate.y) {
-            if (segment->health == SegmentHealth::Untouched) {
-                segment->health = SegmentHealth::Damaged;
-            } else if (segment->health == SegmentHealth::Damaged) {
-                segment->health = SegmentHealth::Destroyed;
-            }
-            return;
-        }
-    }
-    std::cout << "Coordinate is out of range or miss" << std::endl;
-}
-
 bool Ship::isDestroyed() const {
     for (auto& segment : this->segments) {
         if (segment->health != SegmentHealth::Destroyed) {

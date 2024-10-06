@@ -125,5 +125,5 @@ void Painter::printFields(Field self, Field other) const {
         }
         std::cout << "\033[30m" << "x" << std::endl;
     }
-    std::cout << "\033[0m";
+    std::cout << "\033[0m" << std::endl;
 }
