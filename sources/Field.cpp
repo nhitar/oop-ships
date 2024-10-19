@@ -48,6 +48,10 @@ int Field::getColumns() const {
     return this->columns;
 }
 
+Cell& Field::getCell(Coordinate coordinate) {
+    return this->field[coordinate.y * this->columns + coordinate.x];
+}
+
 std::vector<Cell> Field::getField() const {
     return this->field;
 }
@@ -144,7 +148,7 @@ void Field::placeShipRandomly(Ship* ship) {
     std::uniform_int_distribution<> disOrientation(0, 1);
 
     int j = 0;
-    while(true) {
+    while (true) {
         int randomX = disX(gen);
         int randomY = disY(gen);
         int randOrientation = disOrientation(gen);
@@ -179,6 +183,9 @@ bool Field::attack(Coordinate coordinate) {
     }
     
     Cell& fieldCell = this->field[this->columns*coordinate.y + coordinate.x];
+    if (fieldCell.segment) {
+        fieldCell.segment->handleDamage();
+    }
     fieldCell.state = CellState::Revealed;
     switch (fieldCell.value) {
         case CellValue::WaterHidden:
@@ -186,12 +193,10 @@ bool Field::attack(Coordinate coordinate) {
             break;
 
         case CellValue::ShipPart:
-            fieldCell.segment->health = SegmentHealth::Damaged;
             fieldCell.value = CellValue::Hit;
             break;
         
         case CellValue::Hit:
-            fieldCell.segment->health = SegmentHealth::Destroyed;
             fieldCell.value = CellValue::Destroyed;
             break;
         

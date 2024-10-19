@@ -23,6 +23,7 @@ class Field {
         // methods
         int getRows() const;
         int getColumns() const;
+        Cell& getCell(Coordinate coordinate);
         std::vector<Cell> getField() const;
 
         bool checkCoordinates(Coordinate coordinate);

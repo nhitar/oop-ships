@@ -24,6 +24,14 @@ struct Coordinate {
 struct Segment {
     Coordinate coordinate;
     SegmentHealth health;
+    void handleDamage() {
+        if (health == SegmentHealth::Untouched) {
+            health = SegmentHealth::Damaged;
+        }
+        else if (health == SegmentHealth::Damaged) {
+            health = SegmentHealth::Destroyed;
+        }
+    }
 };
 
 struct Cell {

@@ -6,6 +6,7 @@
 
 class ShipManager {
     private:
+        // Убрать ссылки
         std::vector<Ship*>ships;
         int shipCount;
     public:
