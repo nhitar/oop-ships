@@ -9,12 +9,12 @@
 
 class AbilityManager {
     private:
-        std::deque<std::unique_ptr<Ability>> abilities;
+        std::deque<Ability*> abilities;
         int abilityCount;
     public:
         AbilityManager();
         
-        std::deque<std::unique_ptr<Ability>>* getDeque();
+        std::deque<Ability*>* getDeque();
 
         int getAbilityCount() const;
         void setAbilityCount(int count);

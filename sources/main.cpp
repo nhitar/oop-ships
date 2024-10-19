@@ -28,16 +28,20 @@ int main() {
             std::cout << "Использовать случайную способность? y/n" << std::endl;
             std::string result;
             std::cin >> result;
+
             if (result == "y" || result == "Y") {
                 am.setAbilityCount(am.getAbilityCount() - 1);
                 std::string name = am.getDeque()->front()->getAbilityName();
                 std::cout << name << std::endl;
                 x = y = 0;
+                
+                am.getDeque()->front()->setField(&enemyField);
                 if (name == "Double Damage" || name == "Scanner") {
                     std::cout << "Куда использовать способность?" << std::endl;
                     std::cin >> x >> y;
+                    am.getDeque()->front()->setCoordinate({x, y});
                 }
-                am.getDeque()->front()->implementAbility(&enemyField, {x, y});
+                am.getDeque()->front()->implementAbility();
                 
                 if (name == "Double Damage") {
                     Ship* enemyShip = enemyShips->getShip({x, y});

@@ -10,7 +10,7 @@ AbilityManager::AbilityManager(){
     std::shuffle(this->abilities.begin(), this->abilities.end(), gen);
 }
 
-std::deque<std::unique_ptr<Ability>>* AbilityManager::getDeque() {
+std::deque<Ability*>* AbilityManager::getDeque() {
     return &(this->abilities);
 }
 
@@ -28,13 +28,13 @@ void AbilityManager::addAbility() {
     int randomNum = dis(gen);
     switch (randomNum) {
         case 0:
-            this->abilities.push_back(std::make_unique<DoubleDamage>());
+            this->abilities.push_back(new DoubleDamage(new Field(0, 0), {0, 0}));
             break;
         case 1:
-            this->abilities.push_back(std::make_unique<Scanner>());
+            this->abilities.push_back(new Scanner(new Field(0, 0), {0, 0}));
             break;
         case 2:
-            this->abilities.push_back(std::make_unique<Gunblaze>());
+            this->abilities.push_back(new Gunblaze(new Field(0, 0)));
             break;
         default:
             break;

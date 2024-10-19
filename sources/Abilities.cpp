@@ -1,11 +1,25 @@
 #include "../include/Abilities.hpp"
 
-void DoubleDamage::implementAbility(Field* field, Coordinate coordinate) {
-    field->attack(coordinate);
-    field->attack(coordinate);
+DoubleDamage::DoubleDamage(Field* field, Coordinate coordinate) : field(field), coordinate(coordinate) {}
+
+Scanner::Scanner(Field* field, Coordinate coordinate) : field(field), coordinate(coordinate) {}
+
+Gunblaze::Gunblaze(Field* field) : field(field) {}
+
+void DoubleDamage::implementAbility() {
+    this->field->attack(this->coordinate);
+    this->field->attack(this->coordinate);
 }
 
-void Scanner::implementAbility(Field* field, Coordinate coordinate) {
+void DoubleDamage::setField(Field* field) {
+    this->field = field;
+}
+
+void DoubleDamage::setCoordinate(Coordinate coordinate) {
+    this->coordinate = coordinate;
+}
+
+void Scanner::implementAbility() {
     for (int y = 0; y <= 1; y++) {
         for (int x = 0; x <= 1; x++) {
             if (field->checkCoordinates({coordinate.x+x, coordinate.y+y})) {
@@ -29,7 +43,15 @@ void Scanner::implementAbility(Field* field, Coordinate coordinate) {
     std::cout << "Корабль не найден" << std::endl;
 }
 
-void Gunblaze::implementAbility(Field* field, Coordinate coordinate) {
+void Scanner::setField(Field* field) {
+    this->field = field;
+}
+
+void Scanner::setCoordinate(Coordinate coordinate) {
+    this->coordinate = coordinate;
+}
+
+void Gunblaze::implementAbility() {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> disX(0, field->getColumns() - 1);
@@ -56,4 +78,8 @@ void Gunblaze::implementAbility(Field* field, Coordinate coordinate) {
             return;
         }
     }
+}
+
+void Gunblaze::setField(Field* field) {
+    this->field = field;
 }
