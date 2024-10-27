@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Abilities.hpp"
+#include "AbilityCreator.hpp"
 #include <queue>
 #include <algorithm>
 #include <memory>
@@ -9,14 +10,15 @@
 
 class AbilityManager {
     private:
-        std::deque<Ability*> abilities;
-        int abilityCount;
+        std::queue<Abilities> abilities;
+        Field& field;
     public:
-        AbilityManager();
-        
-        std::deque<Ability*>* getDeque();
+        AbilityManager(Field& field);
 
         int getAbilityCount() const;
-        void setAbilityCount(int count);
-        void addAbility();
+        Abilities front() const;
+        void giveRandomAbility();
+
+        void addAbility(Abilities ability);
+        void useAbility(Coordinate coordinate = {-1, -1});
 };

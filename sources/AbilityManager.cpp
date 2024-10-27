@@ -1,44 +1,64 @@
 #include "../include/AbilityManager.hpp"
 
-AbilityManager::AbilityManager(){
+AbilityManager::AbilityManager(Field& field) : field(field){
+    std::vector<Abilities> vec = {Abilities::DoubleDamage, Abilities::Scanner, Abilities::Gunblaze};
     std::random_device rd;
     std::mt19937 gen(rd());
-    this->abilityCount = 0;
-
-    this->addAbility();
-
-    std::shuffle(this->abilities.begin(), this->abilities.end(), gen);
-}
-
-std::deque<Ability*>* AbilityManager::getDeque() {
-    return &(this->abilities);
+    
+    std::shuffle(vec.begin(), vec.end(), gen);
+    this->abilities.push(vec[0]);
 }
 
 int AbilityManager::getAbilityCount() const {
-    return this->abilityCount;
-}
-void AbilityManager::setAbilityCount(int count) {
-    this->abilityCount = count;
+    return this->abilities.size();
 }
 
-void AbilityManager::addAbility() {
+Abilities AbilityManager::front() const {
+    return this->abilities.front();
+}
+
+void AbilityManager::addAbility(Abilities ability) {
+   this->abilities.push(ability);
+}
+
+void AbilityManager::giveRandomAbility() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, 2);
-    int randomNum = dis(gen);
-    switch (randomNum) {
-        case 0:
-            this->abilities.push_back(new DoubleDamage(new Field(0, 0), {0, 0}));
+    int randomNumber = gen() % 3;   
+    switch (randomNumber) {
+        case 0: {
+            this->addAbility(Abilities::DoubleDamage);
             break;
-        case 1:
-            this->abilities.push_back(new Scanner(new Field(0, 0), {0, 0}));
+        }
+        case 1: {
+            this->addAbility(Abilities::Scanner);
             break;
-        case 2:
-            this->abilities.push_back(new Gunblaze(new Field(0, 0)));
+        }
+        case 2: {
+            this->addAbility(Abilities::Gunblaze);
             break;
+        }
         default:
             break;
     }
-    this->abilityCount++;
-    std::shuffle(this->abilities.begin(), this->abilities.end(), gen);
+}
+
+void AbilityManager::useAbility(Coordinate coordinate) {
+    Abilities ability = this->abilities.front();
+    this->abilities.pop();
+    if (coordinate.x == -1 && coordinate.y == -1) {
+        (new GunblazeAbilityCreator(this->field))->createAbility()->implementAbility();
+        return;
+    }
+    
+    if (ability == Abilities::DoubleDamage) {
+        (new DoubleDamageAbilityCreator(this->field, coordinate))->createAbility()->implementAbility();
+        return;
+    }
+    
+    if (ability == Abilities::Scanner) {
+        (new ScannerAbilityCreator(this->field, coordinate))->createAbility()->implementAbility();
+        return;
+    }
+    
 }

@@ -7,7 +7,6 @@
 
 int main() {
     Painter painter;
-    AbilityManager am;
     Field enemyField = Field(10, 10);
     Field selfField = Field(enemyField);
 
@@ -20,6 +19,7 @@ int main() {
     selfField.revealCells();
     // enemyField.revealCells();
     painter.printFields(selfField, enemyField);
+    AbilityManager am(enemyField);
     while (true) {
         int x, y;
         
@@ -30,31 +30,36 @@ int main() {
             std::cin >> result;
 
             if (result == "y" || result == "Y") {
-                am.setAbilityCount(am.getAbilityCount() - 1);
-                std::string name = am.getDeque()->front()->getAbilityName();
-                std::cout << name << std::endl;
+                Abilities name = am.front();
+                if (name == Abilities::DoubleDamage) {
+                    std::cout << "Double Damage" << std::endl;   
+                } else if (name == Abilities::Scanner) {
+                    std::cout << "Scanner" << std::endl;
+                } else {
+                    std::cout << "Gunblaze" << std::endl;
+                }
                 x = y = 0;
                 
-                am.getDeque()->front()->setField(&enemyField);
-                if (name == "Double Damage" || name == "Scanner") {
+                if (name == Abilities::DoubleDamage || name == Abilities::Scanner) {
                     std::cout << "Куда использовать способность?" << std::endl;
                     std::cin >> x >> y;
-                    am.getDeque()->front()->setCoordinate({x, y});
+                    am.useAbility({x, y});
                 }
-                am.getDeque()->front()->implementAbility();
-                
-                if (name == "Double Damage") {
+                else {
+                    am.useAbility();
+                }
+
+                if (name == Abilities::DoubleDamage) {
                     Ship* enemyShip = enemyShips->getShip({x, y});
                     if (enemyShip->getLength() != 0 && enemyShip->isDestroyed()) {
                         enemyField.revealCoordinatesAround(enemyShip);
                         enemyShips->setShipCount(enemyShips->getShipCount() - 1);
                         
                         std::cout << "Получена способность" << std::endl;
-                        am.addAbility();
+                        am.giveRandomAbility();
                     }
                 }
 
-                am.getDeque()->pop_front();
                 painter.printFields(selfField, enemyField);
             }
         }
@@ -70,7 +75,7 @@ int main() {
             enemyShips->setShipCount(enemyShips->getShipCount() - 1);
             
             std::cout << "Получена способность" << std::endl;
-            am.addAbility();
+            am.giveRandomAbility();
 
             if (enemyShips->getShipCount() == 0) {
                 std::cout << "You win!" << std::endl;
