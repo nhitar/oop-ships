@@ -2,6 +2,7 @@
 
 #include "Abilities.hpp"
 #include "AbilityCreator.hpp"
+#include "Exceptions/NoAbilitiesAvailableException.hpp"
 #include <queue>
 #include <algorithm>
 #include <memory>
@@ -17,8 +18,10 @@ class AbilityManager {
 
         int getAbilityCount() const;
         Abilities front() const;
-        void giveRandomAbility();
+        void checkIfEmpty();
 
         void addAbility(Abilities ability);
+        void giveRandomAbility();
         void useAbility(Coordinate coordinate = {-1, -1});
+        void popAbility();
 };

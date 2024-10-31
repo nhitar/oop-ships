@@ -1,9 +1,6 @@
 #include "../include/Ship.hpp"
 
 Ship::Ship(int length) : length(length) {
-    if (length < 0 || length > 4) {
-        throw std::invalid_argument("Length of ship must be between 1 and 4");
-    }
     this->orientation = Orientation::Horizontal;
     for (int i = 0; i < length; i++) {
         this->segments.push_back(new Segment());

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Structs.hpp"
+
 #include <iostream>
 #include <vector>
 

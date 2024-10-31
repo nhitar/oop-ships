@@ -3,6 +3,12 @@
 #include "Ship.hpp"
 #include "Structs.hpp"
 
+#include "Exceptions/UnableToPlaceShipsException.hpp"
+#include "Exceptions/MultipleMissesException.hpp"
+#include "Exceptions/OutOfRangeException.hpp"
+#include "Exceptions/RevealedCellAttackException.hpp"
+#include "Exceptions/ShipPlacementException.hpp"
+
 #include <iostream>
 #include <vector>
 #include <cstdlib>

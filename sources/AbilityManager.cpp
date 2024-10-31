@@ -1,5 +1,6 @@
 #include "../include/AbilityManager.hpp"
 
+
 AbilityManager::AbilityManager(Field& field) : field(field){
     std::vector<Abilities> vec = {Abilities::DoubleDamage, Abilities::Scanner, Abilities::Gunblaze};
     std::random_device rd;
@@ -15,6 +16,12 @@ int AbilityManager::getAbilityCount() const {
 
 Abilities AbilityManager::front() const {
     return this->abilities.front();
+}
+
+void AbilityManager::checkIfEmpty() {
+    if (abilities.empty()) {
+        throw NoAbilitiesAvailableException();
+    }
 }
 
 void AbilityManager::addAbility(Abilities ability) {
@@ -45,20 +52,25 @@ void AbilityManager::giveRandomAbility() {
 
 void AbilityManager::useAbility(Coordinate coordinate) {
     Abilities ability = this->abilities.front();
-    this->abilities.pop();
     if (coordinate.x == -1 && coordinate.y == -1) {
         (new GunblazeAbilityCreator(this->field))->createAbility()->implementAbility();
+        this->abilities.pop();
         return;
     }
     
     if (ability == Abilities::DoubleDamage) {
         (new DoubleDamageAbilityCreator(this->field, coordinate))->createAbility()->implementAbility();
+        this->abilities.pop();
         return;
     }
     
     if (ability == Abilities::Scanner) {
         (new ScannerAbilityCreator(this->field, coordinate))->createAbility()->implementAbility();
+        this->abilities.pop();
         return;
     }
-    
+}
+
+void AbilityManager::popAbility() {
+    this->abilities.pop();
 }

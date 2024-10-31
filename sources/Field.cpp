@@ -1,5 +1,6 @@
 #include "../include/Field.hpp"
 
+
 Field::Field(int rows, int columns) : rows(rows), columns(columns) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
@@ -101,7 +102,7 @@ bool Field::placeShip(Ship* ship, Coordinate coordinate) {
 
         for (int i = 0; i < ship->getLength(); i++) {
             if (checkCoordinatesAround({coordinate.x + i, coordinate.y})) {
-                return false;
+                throw ShipPlacementException();
             }
             if (this->isShipAt({coordinate.x + i, coordinate.y})) {
                 return false;
@@ -156,16 +157,18 @@ void Field::placeShipRandomly(Ship* ship) {
         if (randOrientation == 1) {
             ship->changeOrientation();
         }
-        
-        if (this->placeShip(ship, {randomX, randomY})) {
-            ship->setCoordinate({randomX, randomY});
-            return;
+        try {
+            if (this->placeShip(ship, {randomX, randomY})) {
+                ship->setCoordinate({randomX, randomY});
+                return;
+            }
         }
-        j++;
-
-        if (j > 100) {
-            std::cout << "Error: Unable to place ship randomly" << std::endl;
-            return;
+        catch (ShipPlacementException& e) {
+            j++;
+            if (j >= 30) {
+                throw UnableToPlaceShipsException();
+            }
+            continue;
         }
     }
 }
@@ -178,8 +181,7 @@ void Field::initField(std::vector<Ship*> fleet) {
 
 bool Field::attack(Coordinate coordinate) {
     if (this->checkCoordinates(coordinate)) {
-        std::cout << "Error: Invalid coordinates" << std::endl;
-        return false;
+        throw OutOfRangeException();
     }
     
     Cell& fieldCell = this->field[this->columns*coordinate.y + coordinate.x];
@@ -201,8 +203,7 @@ bool Field::attack(Coordinate coordinate) {
             break;
         
         default:
-            std::cout << "Error: Attempt to attack already revealed cell" << std::endl;
-            return false;
+            throw RevealedCellAttackException();
             break;
     }
     return true;
@@ -213,19 +214,23 @@ Coordinate Field::attackRandomly() {
     std::uniform_int_distribution<> disX(0, columns - 1);
     std::uniform_int_distribution<> disY(0, rows - 1);
     std::mt19937 gen(rd());
+    
     int j = 0;
     while(true) {
         int randomX = disX(gen);
         int randomY = disY(gen);
         
-        if (!this->checkCoordinates({randomX, randomY}) && this->attack({randomX, randomY})) {
-            return {randomX, randomY};
+        try {
+            if (!this->checkCoordinates({randomX, randomY}) && this->attack({randomX, randomY})) {
+                return {randomX, randomY};
+            }
         }
-        j++;
-
-        if (j > 100) {
-            std::cout << "Error: Unable to attack randomly" << std::endl;
-            return {-1, -1};
+        catch (RevealedCellAttackException& e) {
+            j++;
+            if (j > 100000) {
+                throw MultipleMissesException();
+            }
+            continue;
         }
     }
 }

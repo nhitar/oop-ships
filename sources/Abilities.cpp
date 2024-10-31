@@ -15,7 +15,7 @@ void Scanner::implementAbility() {
     for (int y = 0; y <= 1; y++) {
         for (int x = 0; x <= 1; x++) {
             if (field.checkCoordinates({coordinate.x+x, coordinate.y+y})) {
-                throw std::invalid_argument("Coordinates");
+                throw OutOfRangeException();
             }
             Cell& fieldCell = field.getField()[field.getColumns()*(coordinate.y+y) + coordinate.x + x];
             if (fieldCell.segment != nullptr) {
@@ -41,7 +41,6 @@ void Gunblaze::implementAbility() {
     std::uniform_int_distribution<> disX(0, field.getColumns() - 1);
     std::uniform_int_distribution<> disY(0, field.getRows() - 1);
     
-    int j = 0;
     while (true) {
         int randomX = disX(gen);
         int randomY = disY(gen);
@@ -53,12 +52,6 @@ void Gunblaze::implementAbility() {
             } else {
                 fieldCell.value = CellValue::Destroyed;
             }
-            return;
-        }
-        j++;
-
-        if (j > 1000) {
-            std::cout << "Error: Unable to attack randomly" << std::endl;
             return;
         }
     }
