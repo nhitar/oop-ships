@@ -14,7 +14,7 @@ class DoubleDamage : public Ability {
         Field& field;
         Coordinate coordinate;
     public:
-        DoubleDamage(Field& field, Coordinate coordinates);
+        DoubleDamage(Field& field, Coordinate coordinate);
 
         void implementAbility() override;
 };
@@ -24,7 +24,7 @@ class Scanner : public Ability {
         Field& field;
         Coordinate coordinate;
     public:
-        Scanner(Field& field, Coordinate coordinates);
+        Scanner(Field& field, Coordinate coordinate);
 
         void implementAbility() override;
 };

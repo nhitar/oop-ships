@@ -8,7 +8,7 @@ void Game::initGame() {
     std::vector<int> shipSizes = {4, 3, 3, 2, 2, 2, 1, 1, 1, 1};
     try {
         for (auto& size : shipSizes) {
-            if (size < 0 || size > 4) {
+            if (size < 1 || size > 4) {
                 throw InvalidShipSizeException();
             }
         }
@@ -29,7 +29,6 @@ void Game::initGame() {
         return;
     }
     selfField.revealCells();
-    // enemyField.revealCells();
     painter.printFields(selfField, enemyField);
     AbilityManager am(enemyField);
 
@@ -40,6 +39,7 @@ void Game::initGame() {
         std::string result;
         std::cin >> result;
 
+        // Player ability
         if (result == "y" || result == "Y") {
             try {
                 am.checkIfEmpty();
@@ -51,7 +51,6 @@ void Game::initGame() {
             Abilities name = am.front();
             painter.printAbilityName(name);
 
-            x = y = 0;
             try {
                 if (name == Abilities::DoubleDamage || name == Abilities::Scanner) {
                     std::cout << "Give coordinates for ability." << std::endl;
@@ -83,6 +82,7 @@ void Game::initGame() {
             painter.printFields(selfField, enemyField);
         }
         
+        // Attack
         while (true) {
             try {
                 std::cin >> x >> y;
@@ -112,7 +112,8 @@ void Game::initGame() {
                 break;
             }
         }
-        //enemyShips->printShips();
+        
+        // Enemy attack
         Coordinate coords = {-1, -1};
         try {
             coords = selfField.attackRandomly();

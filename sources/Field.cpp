@@ -105,7 +105,7 @@ bool Field::placeShip(Ship* ship, Coordinate coordinate) {
                 throw ShipPlacementException();
             }
             if (this->isShipAt({coordinate.x + i, coordinate.y})) {
-                return false;
+                throw ShipPlacementException();
             }
         }
 
@@ -126,10 +126,10 @@ bool Field::placeShip(Ship* ship, Coordinate coordinate) {
 
     for (int i = 0; i < ship->getLength(); i++) {
         if (checkCoordinatesAround({coordinate.x, coordinate.y + i})) {
-            return false;
+            throw ShipPlacementException();
         }
         if (this->isShipAt({coordinate.x, coordinate.y + i})) {
-            return false;
+            throw ShipPlacementException();
         }
     }
 
