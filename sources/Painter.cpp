@@ -1,5 +1,23 @@
 #include "../include/Painter.hpp"
 
+void Painter::printLogo(const std::string& filename) const {
+    std::cout << "\033[1;31m" << std::endl;
+
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::cout << line << std::endl;
+    }
+
+    file.close();
+    std::cout << "\033[1;0m" << std::endl;
+}
+
 void Painter::printException(std::exception& e) const {
     std::cerr << "\033[1;31m" <<  "Exception: " << e.what() << "\033[0m" << std::endl;
 }

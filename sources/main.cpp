@@ -1,5 +1,7 @@
 #include "../include/Game.hpp"
 
+
+
 void initGame() {
     Painter& painter = Painter::instance();
     Field enemyField = Field(10, 10);
@@ -37,6 +39,8 @@ void initGame() {
 }
 
 int main() {
+    Painter& painter = Painter::instance();
+    painter.printLogo("/home/nhitar/oop-ships/logo.txt");
     initGame();
     return 0;
 }

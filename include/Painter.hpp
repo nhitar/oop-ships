@@ -4,6 +4,8 @@
 #include "Field.hpp"
 #include "Structs.hpp"
 
+#include <fstream>
+
 class Painter {
     private:
         Painter(){}
@@ -14,6 +16,7 @@ class Painter {
             static Painter singleton;
             return singleton;
         }
+        void printLogo(const std::string& filename) const;
         void printException(std::exception& e) const;
         void printAbilityName(Abilities name) const;
         void printCellValue(Field self, Coordinate coordinate) const;
