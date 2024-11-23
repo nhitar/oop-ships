@@ -6,11 +6,11 @@ void Painter::printException(std::exception& e) const {
 
 void Painter::printAbilityName(Abilities name) const {
     if (name == Abilities::DoubleDamage) {
-        std::cout << "Double Damage" << std::endl;   
+        std::cout << "Double Damage." << std::endl;   
     } else if (name == Abilities::Scanner) {
-        std::cout << "Scanner" << std::endl;
+        std::cout << "Scanner." << std::endl;
     } else {
-        std::cout << "Gunblaze" << std::endl;
+        std::cout << "Gunblaze." << std::endl;
     }
 }
 

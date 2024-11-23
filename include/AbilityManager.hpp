@@ -15,6 +15,14 @@ class AbilityManager {
         Field& field;
     public:
         AbilityManager(Field& field);
+        AbilityManager(const AbilityManager& other)
+            : abilities(other.abilities), field(other.field) {}
+        AbilityManager& operator=(const AbilityManager& other) {
+            if (this != &other) {
+                abilities = other.abilities;
+           }
+            return *this;
+        }
 
         int getAbilityCount() const;
         Abilities front() const;

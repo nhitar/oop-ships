@@ -19,7 +19,7 @@ void Scanner::implementAbility() {
             }
             Cell& fieldCell = field.getField()[field.getColumns()*(coordinate.y+y) + coordinate.x + x];
             if (fieldCell.segment != nullptr) {
-                std::cout << "Корабль найден" << std::endl;
+                std::cout << "Ship is in the zone." << std::endl;
                 return;
             }
         }
@@ -32,7 +32,7 @@ void Scanner::implementAbility() {
             fieldCell.value = CellValue::WaterRevealed;
         }
     }
-    std::cout << "Корабль не найден" << std::endl;
+    std::cout << "Zone is clear." << std::endl;
 }
 
 void Gunblaze::implementAbility() {

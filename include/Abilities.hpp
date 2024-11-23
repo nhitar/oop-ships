@@ -6,7 +6,7 @@
 class Ability {
     public:
         virtual void implementAbility() = 0;
-        virtual ~Ability() = default;
+        virtual ~Ability() {};
 };
 
 class DoubleDamage : public Ability {
