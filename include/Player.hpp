@@ -12,7 +12,8 @@ class Unit {
     public:
         Unit(ShipManager& shipManager, Field& field)
             : shipManager(shipManager), field(field) {}
-        virtual bool doAttack() = 0;
+
+        virtual ShipManager& getShipManager() = 0;
         virtual Field& getField() = 0;
         virtual ~Unit() {};
 };
@@ -33,8 +34,8 @@ class Player : public Unit {
             }
             return *this;
         }
-        void useAbility();
-        bool doAttack() override;
+
+        ShipManager& getShipManager() override { return shipManager; };
         Field& getField() override { return field; };
         AbilityManager& getAbilityManager() { return abilityManager; };
 };
@@ -46,15 +47,14 @@ class Bot : public Unit {
         Bot(const Bot& other)
             : Unit(other.shipManager, other.field) {}
 
-        // Оператор присваивания
         Bot& operator=(const Bot& other) {
             if (this != &other) {
-                // Присваивание членов
                 this->shipManager = other.shipManager;
                 this->field = other.field;
             }
             return *this;
         }
-        bool doAttack() override;
+
+        ShipManager& getShipManager() override { return shipManager; };
         Field& getField() override { return field; };
 };
