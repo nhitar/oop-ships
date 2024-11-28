@@ -22,14 +22,8 @@ void Painter::printException(std::exception& e) const {
     std::cerr << "\033[1;31m" <<  "Exception: " << e.what() << "\033[0m" << std::endl;
 }
 
-void Painter::printAbilityName(Abilities name) const {
-    if (name == Abilities::DoubleDamage) {
-        std::cout << "Double Damage." << std::endl;   
-    } else if (name == Abilities::Scanner) {
-        std::cout << "Scanner." << std::endl;
-    } else {
-        std::cout << "Gunblaze." << std::endl;
-    }
+void Painter::printAbilityName(std::string name) const {
+    std::cout << name << std::endl;
 }
 
 void Painter::printCellValue(Field self, Coordinate coordinate) const {

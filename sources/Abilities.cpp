@@ -1,14 +1,13 @@
 #include "../include/Abilities.hpp"
 
-DoubleDamage::DoubleDamage(Field& field, Coordinate coordinate) : field(field), coordinate(coordinate) {}
+DoubleDamage::DoubleDamage(int& currentDamage) : currentDamage(currentDamage) {}
 
 Scanner::Scanner(Field& field, Coordinate coordinate) : field(field), coordinate(coordinate) {}
 
 Gunblaze::Gunblaze(Field& field) : field(field) {}
 
 void DoubleDamage::implementAbility() {
-    this->field.attack(this->coordinate);
-    this->field.attack(this->coordinate);
+    this->currentDamage = 2;
 }
 
 void Scanner::implementAbility() {

@@ -1,37 +1,36 @@
 #pragma once
 
 #include "Abilities.hpp"
-
-enum class Abilities { DoubleDamage, Scanner, Gunblaze };
+#include <string.h>
 
 class AbilityCreator {
     public:
-        virtual Ability* createAbility() = 0;
+        virtual Ability* createAbility(AbilityParameters& ap) = 0;
+        virtual std::string getName() const = 0;
+        virtual bool isUsingCoordinate() = 0;
         virtual ~AbilityCreator() {};
 };
 
 class DoubleDamageAbilityCreator : public AbilityCreator {
-    private:
-        Field& field;
-        Coordinate coordinate;
     public:
-        DoubleDamageAbilityCreator(Field& field, Coordinate coordinate) : field(field), coordinate(coordinate) {};
-        Ability* createAbility() override { return new DoubleDamage(this->field, this->coordinate); };
+        DoubleDamageAbilityCreator() {};
+        std::string getName() const override { return "Double Damage"; };
+        bool isUsingCoordinate() override { return false; };
+        Ability* createAbility(AbilityParameters& ap) override { return new DoubleDamage(ap.currentDamage); };
 };
 
 class ScannerAbilityCreator : public AbilityCreator {
-    private:
-        Field& field;
-        Coordinate coordinate;
     public:
-        ScannerAbilityCreator(Field& field, Coordinate coordinate) : field(field), coordinate(coordinate) {};
-        Ability* createAbility() override { return new Scanner(this->field, this->coordinate); };
+        ScannerAbilityCreator() {};
+        std::string getName() const override { return "Scanner"; };
+        bool isUsingCoordinate() override { return true; };
+        Ability* createAbility(AbilityParameters& ap) override { return new Scanner(ap.field, ap.coordinate); };
 };
 
 class GunblazeAbilityCreator : public AbilityCreator {
-    private:
-        Field& field;
     public:
-        GunblazeAbilityCreator(Field& field) : field(field) {};
-        Ability* createAbility() override { return new Gunblaze(this->field); };
+        GunblazeAbilityCreator() {};
+        std::string getName() const override { return "Gunblaze"; };
+        bool isUsingCoordinate() override { return false; };
+        Ability* createAbility(AbilityParameters& ap) override { return new Gunblaze(ap.field); };
 };

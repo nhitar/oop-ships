@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Field.hpp"
+#include "AbilityParameters.hpp"
 #include <random>
 #include <string>
 class Ability {
@@ -11,10 +12,9 @@ class Ability {
 
 class DoubleDamage : public Ability {
     private:
-        Field& field;
-        Coordinate coordinate;
+        int& currentDamage;
     public:
-        DoubleDamage(Field& field, Coordinate coordinate);
+        DoubleDamage(int& currentDamage);
 
         void implementAbility() override;
 };

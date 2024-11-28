@@ -3,6 +3,8 @@
 #include "Abilities.hpp"
 #include "AbilityCreator.hpp"
 #include "Exceptions/NoAbilitiesAvailableException.hpp"
+#include "AbilityParameters.hpp"
+
 #include <queue>
 #include <algorithm>
 #include <memory>
@@ -11,25 +13,24 @@
 
 class AbilityManager {
     private:
-        std::queue<Abilities> abilities;
-        Field& field;
+        std::queue<AbilityCreator*> abilities;
     public:
-        AbilityManager(Field& field);
-        AbilityManager(const AbilityManager& other)
-            : abilities(other.abilities), field(other.field) {}
-        AbilityManager& operator=(const AbilityManager& other) {
-            if (this != &other) {
-                abilities = other.abilities;
-           }
-            return *this;
-        }
+        AbilityManager();
+        // AbilityManager(const AbilityManager& other)
+        //     : abilities(other.abilities) {}
+        // AbilityManager& operator=(const AbilityManager& other) {
+        //     if (this != &other) {
+        //         abilities = other.abilities;
+        //    }
+        //     return *this;
+        // }
 
         int getAbilityCount() const;
-        Abilities front() const;
+        AbilityCreator& getCreator();
         void checkIfEmpty();
 
-        void addAbility(Abilities ability);
+        void addAbility(AbilityCreator* creator);
         void giveRandomAbility();
-        void useAbility(Coordinate coordinate = {-1, -1});
+        void useAbility(AbilityParameters& ap);
         void popAbility();
 };

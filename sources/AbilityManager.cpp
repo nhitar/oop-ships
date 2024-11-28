@@ -1,7 +1,7 @@
 #include "../include/AbilityManager.hpp"
 
-AbilityManager::AbilityManager(Field& field) : field(field){
-    std::vector<Abilities> vec = {Abilities::DoubleDamage, Abilities::Scanner, Abilities::Gunblaze};
+AbilityManager::AbilityManager() {
+    std::vector<AbilityCreator*> vec = {new DoubleDamageAbilityCreator(), new ScannerAbilityCreator(), new GunblazeAbilityCreator()};
     std::random_device rd;
     std::mt19937 gen(rd());
     
@@ -13,8 +13,9 @@ int AbilityManager::getAbilityCount() const {
     return this->abilities.size();
 }
 
-Abilities AbilityManager::front() const {
-    return this->abilities.front();
+AbilityCreator& AbilityManager::getCreator() {
+    checkIfEmpty();
+    return *this->abilities.front();
 }
 
 void AbilityManager::checkIfEmpty() {
@@ -23,8 +24,8 @@ void AbilityManager::checkIfEmpty() {
     }
 }
 
-void AbilityManager::addAbility(Abilities ability) {
-   this->abilities.push(ability);
+void AbilityManager::addAbility(AbilityCreator* creator) {
+   this->abilities.push(creator);
 }
 
 void AbilityManager::giveRandomAbility() {
@@ -33,15 +34,15 @@ void AbilityManager::giveRandomAbility() {
     int randomNumber = gen() % 3;   
     switch (randomNumber) {
         case 0: {
-            this->addAbility(Abilities::DoubleDamage);
+            this->addAbility(new DoubleDamageAbilityCreator());
             break;
         }
         case 1: {
-            this->addAbility(Abilities::Scanner);
+            this->addAbility(new ScannerAbilityCreator());
             break;
         }
         case 2: {
-            this->addAbility(Abilities::Gunblaze);
+            this->addAbility(new GunblazeAbilityCreator());
             break;
         }
         default:
@@ -49,25 +50,12 @@ void AbilityManager::giveRandomAbility() {
     }
 }
 
-void AbilityManager::useAbility(Coordinate coordinate) {
-    Abilities ability = this->abilities.front();
-    if (coordinate.x == -1 && coordinate.y == -1) {
-        (GunblazeAbilityCreator(this->field)).createAbility()->implementAbility();
-        this->abilities.pop();
-        return;
-    }
-    
-    if (ability == Abilities::DoubleDamage) {
-        (DoubleDamageAbilityCreator(this->field, coordinate)).createAbility()->implementAbility();
-        this->abilities.pop();
-        return;
-    }
-    
-    if (ability == Abilities::Scanner) {
-        (ScannerAbilityCreator(this->field, coordinate)).createAbility()->implementAbility();
-        this->abilities.pop();
-        return;
-    }
+void AbilityManager::useAbility(AbilityParameters& ap) {
+    this->checkIfEmpty();
+    AbilityCreator* ability = this->abilities.front();
+    ability->createAbility(ap)->implementAbility();
+    delete(ability);
+    this->abilities.pop();
 }
 
 void AbilityManager::popAbility() {

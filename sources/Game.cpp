@@ -9,33 +9,21 @@ void Game::usePlayerAbility() {
     std::cin >> result;
 
     if (result == "y" || result == "Y") {
+        Coordinate coordinate = {-1, -1};
+        AbilityParameters ap(player.getField(), player.getShipManager(), coordinate, player.getCurrentDamage());
         player.getAbilityManager().checkIfEmpty();
-        Abilities name = player.getAbilityManager().front();
-        painter.printAbilityName(name);
+        painter.printAbilityName(player.getAbilityManager().getCreator().getName());
 
         try {
-            if (name == Abilities::DoubleDamage || name == Abilities::Scanner) {
+            if (player.getAbilityManager().getCreator().isUsingCoordinate()) {
                 std::cout << "Give coordinates for ability." << std::endl;
                 std::cin >> x >> y;
-                player.getAbilityManager().useAbility({x, y});
+                ap.coordinate = {x, y};
             }
-            else {
-                player.getAbilityManager().useAbility();
-            }
+            player.getAbilityManager().useAbility(ap);
         }
         catch (RevealedCellAttackException& e) {
             player.getAbilityManager().popAbility();
-        }
-        
-        if (name == Abilities::DoubleDamage) {
-            Ship* enemyShip = player.getShipManager().getShip({x, y});
-            if (enemyShip->getLength() != 0 && enemyShip->isDestroyed()) {
-                player.getField().revealCoordinatesAround(enemyShip);
-                player.getShipManager().setShipCount(player.getShipManager().getShipCount() - 1);
-                
-                std::cout << "Ability added." << std::endl;
-                player.getAbilityManager().giveRandomAbility();
-            }
         }
     }
 }
@@ -43,13 +31,20 @@ void Game::usePlayerAbility() {
 void Game::doPlayerAttack() {
     Painter& painter = Painter::instance();
     int x, y;
-
+    int successAttack = false;
     while (true) {
         try {
             std::cin >> x >> y;
-            player.getField().attack({x, y});
+            for (int i = 0; i < player.getCurrentDamage(); i++) {
+                player.getField().attack({x, y});
+                successAttack = true;
+            }
+
         }
         catch (RevealedCellAttackException& e) {
+            if (successAttack) {
+                break;
+            }
             painter.printException(e);
             continue;
         }
@@ -59,7 +54,8 @@ void Game::doPlayerAttack() {
         }
         break;
     }
-    
+    player.setCurrentDamage(1);
+
     Ship* enemyShip = player.getShipManager().getShip({x, y});
     if (enemyShip->getLength() != 0 && enemyShip->isDestroyed()) {
         player.getField().revealCoordinatesAround(enemyShip);
@@ -128,7 +124,7 @@ void Game::resetBot() {
     Field newField = Field(10, 10);
     ShipManager newShips = ShipManager(10, shipSizes);
     newField.initField(newShips.getShips());
-    this->player = Player(newShips, newField, player.getAbilityManager());;
+    this->player = Player(newShips, newField, player.getAbilityManager());
 }
 
 void Game::resetGame() {
