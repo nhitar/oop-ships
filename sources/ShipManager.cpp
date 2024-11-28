@@ -43,3 +43,15 @@ void ShipManager::printShips() const{
         ship->printStatus();
     }
 }
+
+// void ShipManager::to_json(nlohmann::json& j, const ShipManager& sm) {
+//     j = nlohmann::json {
+//         {"ships", sm.ships},
+//         {"shipCount", sm.shipCount}
+//     };
+// }
+
+// void ShipManager::from_json(const nlohmann::json& j, ShipManager& sm) {
+//     j.at("ships").get_to(sm.ships);
+//     j.at("shipCount").get_to(sm.shipCount);
+// }

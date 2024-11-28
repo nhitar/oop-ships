@@ -13,7 +13,7 @@ class Ship {
     public:
         Ship(int length);
         ~Ship();
-        // methods
+
         int getLength() const;
         std::vector<Segment*> getSegments() const;
 
@@ -23,5 +23,5 @@ class Ship {
         
         void setCoordinate(Coordinate coordinate);
         
-        void printStatus() const;        
+        void printStatus() const;
 };

@@ -9,13 +9,23 @@ AbilityManager::AbilityManager() {
     this->abilities.push(vec[0]);
 }
 
+AbilityManager::~AbilityManager() {
+    while (!this->abilities.empty()) {
+        this->abilities.pop();
+    }
+}
+
 int AbilityManager::getAbilityCount() const {
     return this->abilities.size();
 }
 
-AbilityCreator& AbilityManager::getCreator() {
+AbilityCreator& AbilityManager::getCreator(int index) {
     checkIfEmpty();
-    return *this->abilities.front();
+    std::queue<AbilityCreator*> tmp = this->abilities;
+    for (int i = 0; i < index; ++i) {
+        tmp.pop();
+    }
+    return *tmp.front();
 }
 
 void AbilityManager::checkIfEmpty() {

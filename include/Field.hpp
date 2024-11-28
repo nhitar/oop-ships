@@ -26,7 +26,6 @@ class Field {
         Field(Field&& other);
         Field& operator=(Field&& other);
 
-        // methods
         int getRows() const;
         int getColumns() const;
         Cell& getCell(Coordinate coordinate);

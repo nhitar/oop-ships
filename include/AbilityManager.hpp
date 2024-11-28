@@ -16,17 +16,10 @@ class AbilityManager {
         std::queue<AbilityCreator*> abilities;
     public:
         AbilityManager();
-        // AbilityManager(const AbilityManager& other)
-        //     : abilities(other.abilities) {}
-        // AbilityManager& operator=(const AbilityManager& other) {
-        //     if (this != &other) {
-        //         abilities = other.abilities;
-        //    }
-        //     return *this;
-        // }
+        ~AbilityManager();
 
         int getAbilityCount() const;
-        AbilityCreator& getCreator();
+        AbilityCreator& getCreator(int index);
         void checkIfEmpty();
 
         void addAbility(AbilityCreator* creator);
