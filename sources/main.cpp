@@ -1,7 +1,4 @@
 #include "../include/Game.hpp"
-// #include <nlohmann/json.hpp>
-// #include <fstream>
-// using json = nlohmann::json;
 
 int main() {
     Painter& painter = Painter::instance();
@@ -33,12 +30,12 @@ int main() {
         return 0;
     }
     selfField.revealCells();
-    enemyField.revealCells();
     painter.printFields(selfField, enemyField);
     AbilityManager abilityManager;
     Player player = Player(enemyShips, enemyField, abilityManager);
     Bot bot = Bot(selfShips, selfField);
-    Game game = Game(player, bot);
+    GameState gameState = GameState(player, bot);
+    Game game = Game(player, bot, gameState);
 
     while (true) {
         std::cout << "Push 'p' to play, 'l' to load game, 's' to save game 'q' to quit." << std::endl;
@@ -53,12 +50,12 @@ int main() {
 
                 case 'l':
                     std::cout << "Loading the game." << std::endl;
-                    //game.loadGame("saveFile.json");
+                    game.loadGame("/home/nhitar/oop-ships/savefile.json");
                     break;
 
                 case 's':
                     std::cout << "Saving the game." << std::endl;
-                    //game.saveGame("saveFile.json");
+                    game.saveGame("/home/nhitar/oop-ships/savefile.json");
                     break;
 
                 case 'q':

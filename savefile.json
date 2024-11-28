@@ -1,0 +1,1541 @@
+{
+    "botField": {
+        "cell00": {
+            "state": 1,
+            "value": 126,
+            "x": 0,
+            "y": 0
+        },
+        "cell01": {
+            "state": 1,
+            "value": 126,
+            "x": 0,
+            "y": 1
+        },
+        "cell02": {
+            "state": 1,
+            "value": 126,
+            "x": 0,
+            "y": 2
+        },
+        "cell03": {
+            "state": 1,
+            "value": 126,
+            "x": 0,
+            "y": 3
+        },
+        "cell04": {
+            "state": 1,
+            "value": 126,
+            "x": 0,
+            "y": 4
+        },
+        "cell05": {
+            "state": 1,
+            "value": 126,
+            "x": 0,
+            "y": 5
+        },
+        "cell06": {
+            "state": 1,
+            "value": 126,
+            "x": 0,
+            "y": 6
+        },
+        "cell07": {
+            "state": 1,
+            "value": 126,
+            "x": 0,
+            "y": 7
+        },
+        "cell08": {
+            "state": 1,
+            "value": 126,
+            "x": 0,
+            "y": 8
+        },
+        "cell09": {
+            "state": 1,
+            "value": 126,
+            "x": 0,
+            "y": 9
+        },
+        "cell10": {
+            "state": 1,
+            "value": 126,
+            "x": 1,
+            "y": 0
+        },
+        "cell11": {
+            "state": 1,
+            "value": 83,
+            "x": 1,
+            "y": 1
+        },
+        "cell12": {
+            "state": 1,
+            "value": 83,
+            "x": 1,
+            "y": 2
+        },
+        "cell13": {
+            "state": 1,
+            "value": 83,
+            "x": 1,
+            "y": 3
+        },
+        "cell14": {
+            "state": 1,
+            "value": 126,
+            "x": 1,
+            "y": 4
+        },
+        "cell15": {
+            "state": 1,
+            "value": 126,
+            "x": 1,
+            "y": 5
+        },
+        "cell16": {
+            "state": 1,
+            "value": 126,
+            "x": 1,
+            "y": 6
+        },
+        "cell17": {
+            "state": 1,
+            "value": 83,
+            "x": 1,
+            "y": 7
+        },
+        "cell18": {
+            "state": 1,
+            "value": 126,
+            "x": 1,
+            "y": 8
+        },
+        "cell19": {
+            "state": 1,
+            "value": 126,
+            "x": 1,
+            "y": 9
+        },
+        "cell20": {
+            "state": 1,
+            "value": 126,
+            "x": 2,
+            "y": 0
+        },
+        "cell21": {
+            "state": 1,
+            "value": 126,
+            "x": 2,
+            "y": 1
+        },
+        "cell22": {
+            "state": 1,
+            "value": 126,
+            "x": 2,
+            "y": 2
+        },
+        "cell23": {
+            "state": 1,
+            "value": 126,
+            "x": 2,
+            "y": 3
+        },
+        "cell24": {
+            "state": 1,
+            "value": 126,
+            "x": 2,
+            "y": 4
+        },
+        "cell25": {
+            "state": 1,
+            "value": 126,
+            "x": 2,
+            "y": 5
+        },
+        "cell26": {
+            "state": 1,
+            "value": 126,
+            "x": 2,
+            "y": 6
+        },
+        "cell27": {
+            "state": 1,
+            "value": 83,
+            "x": 2,
+            "y": 7
+        },
+        "cell28": {
+            "state": 1,
+            "value": 126,
+            "x": 2,
+            "y": 8
+        },
+        "cell29": {
+            "state": 1,
+            "value": 126,
+            "x": 2,
+            "y": 9
+        },
+        "cell30": {
+            "state": 1,
+            "value": 126,
+            "x": 3,
+            "y": 0
+        },
+        "cell31": {
+            "state": 1,
+            "value": 126,
+            "x": 3,
+            "y": 1
+        },
+        "cell32": {
+            "state": 1,
+            "value": 126,
+            "x": 3,
+            "y": 2
+        },
+        "cell33": {
+            "state": 1,
+            "value": 83,
+            "x": 3,
+            "y": 3
+        },
+        "cell34": {
+            "state": 1,
+            "value": 126,
+            "x": 3,
+            "y": 4
+        },
+        "cell35": {
+            "state": 1,
+            "value": 126,
+            "x": 3,
+            "y": 5
+        },
+        "cell36": {
+            "state": 1,
+            "value": 126,
+            "x": 3,
+            "y": 6
+        },
+        "cell37": {
+            "state": 1,
+            "value": 126,
+            "x": 3,
+            "y": 7
+        },
+        "cell38": {
+            "state": 1,
+            "value": 126,
+            "x": 3,
+            "y": 8
+        },
+        "cell39": {
+            "state": 1,
+            "value": 83,
+            "x": 3,
+            "y": 9
+        },
+        "cell40": {
+            "state": 1,
+            "value": 83,
+            "x": 4,
+            "y": 0
+        },
+        "cell41": {
+            "state": 1,
+            "value": 126,
+            "x": 4,
+            "y": 1
+        },
+        "cell42": {
+            "state": 1,
+            "value": 126,
+            "x": 4,
+            "y": 2
+        },
+        "cell43": {
+            "state": 1,
+            "value": 126,
+            "x": 4,
+            "y": 3
+        },
+        "cell44": {
+            "state": 1,
+            "value": 126,
+            "x": 4,
+            "y": 4
+        },
+        "cell45": {
+            "state": 1,
+            "value": 126,
+            "x": 4,
+            "y": 5
+        },
+        "cell46": {
+            "state": 1,
+            "value": 126,
+            "x": 4,
+            "y": 6
+        },
+        "cell47": {
+            "state": 1,
+            "value": 83,
+            "x": 4,
+            "y": 7
+        },
+        "cell48": {
+            "state": 1,
+            "value": 126,
+            "x": 4,
+            "y": 8
+        },
+        "cell49": {
+            "state": 1,
+            "value": 83,
+            "x": 4,
+            "y": 9
+        },
+        "cell50": {
+            "state": 1,
+            "value": 83,
+            "x": 5,
+            "y": 0
+        },
+        "cell51": {
+            "state": 1,
+            "value": 126,
+            "x": 5,
+            "y": 1
+        },
+        "cell52": {
+            "state": 1,
+            "value": 126,
+            "x": 5,
+            "y": 2
+        },
+        "cell53": {
+            "state": 1,
+            "value": 126,
+            "x": 5,
+            "y": 3
+        },
+        "cell54": {
+            "state": 1,
+            "value": 126,
+            "x": 5,
+            "y": 4
+        },
+        "cell55": {
+            "state": 1,
+            "value": 126,
+            "x": 5,
+            "y": 5
+        },
+        "cell56": {
+            "state": 1,
+            "value": 126,
+            "x": 5,
+            "y": 6
+        },
+        "cell57": {
+            "state": 1,
+            "value": 126,
+            "x": 5,
+            "y": 7
+        },
+        "cell58": {
+            "state": 1,
+            "value": 126,
+            "x": 5,
+            "y": 8
+        },
+        "cell59": {
+            "state": 1,
+            "value": 126,
+            "x": 5,
+            "y": 9
+        },
+        "cell60": {
+            "state": 1,
+            "value": 126,
+            "x": 6,
+            "y": 0
+        },
+        "cell61": {
+            "state": 1,
+            "value": 126,
+            "x": 6,
+            "y": 1
+        },
+        "cell62": {
+            "state": 1,
+            "value": 126,
+            "x": 6,
+            "y": 2
+        },
+        "cell63": {
+            "state": 1,
+            "value": 126,
+            "x": 6,
+            "y": 3
+        },
+        "cell64": {
+            "state": 1,
+            "value": 126,
+            "x": 6,
+            "y": 4
+        },
+        "cell65": {
+            "state": 1,
+            "value": 126,
+            "x": 6,
+            "y": 5
+        },
+        "cell66": {
+            "state": 1,
+            "value": 126,
+            "x": 6,
+            "y": 6
+        },
+        "cell67": {
+            "state": 1,
+            "value": 83,
+            "x": 6,
+            "y": 7
+        },
+        "cell68": {
+            "state": 1,
+            "value": 126,
+            "x": 6,
+            "y": 8
+        },
+        "cell69": {
+            "state": 1,
+            "value": 126,
+            "x": 6,
+            "y": 9
+        },
+        "cell70": {
+            "state": 1,
+            "value": 126,
+            "x": 7,
+            "y": 0
+        },
+        "cell71": {
+            "state": 1,
+            "value": 126,
+            "x": 7,
+            "y": 1
+        },
+        "cell72": {
+            "state": 1,
+            "value": 83,
+            "x": 7,
+            "y": 2
+        },
+        "cell73": {
+            "state": 1,
+            "value": 126,
+            "x": 7,
+            "y": 3
+        },
+        "cell74": {
+            "state": 1,
+            "value": 126,
+            "x": 7,
+            "y": 4
+        },
+        "cell75": {
+            "state": 1,
+            "value": 126,
+            "x": 7,
+            "y": 5
+        },
+        "cell76": {
+            "state": 1,
+            "value": 126,
+            "x": 7,
+            "y": 6
+        },
+        "cell77": {
+            "state": 1,
+            "value": 83,
+            "x": 7,
+            "y": 7
+        },
+        "cell78": {
+            "state": 1,
+            "value": 126,
+            "x": 7,
+            "y": 8
+        },
+        "cell79": {
+            "state": 1,
+            "value": 83,
+            "x": 7,
+            "y": 9
+        },
+        "cell80": {
+            "state": 1,
+            "value": 126,
+            "x": 8,
+            "y": 0
+        },
+        "cell81": {
+            "state": 1,
+            "value": 126,
+            "x": 8,
+            "y": 1
+        },
+        "cell82": {
+            "state": 1,
+            "value": 83,
+            "x": 8,
+            "y": 2
+        },
+        "cell83": {
+            "state": 1,
+            "value": 126,
+            "x": 8,
+            "y": 3
+        },
+        "cell84": {
+            "state": 1,
+            "value": 126,
+            "x": 8,
+            "y": 4
+        },
+        "cell85": {
+            "state": 1,
+            "value": 126,
+            "x": 8,
+            "y": 5
+        },
+        "cell86": {
+            "state": 1,
+            "value": 126,
+            "x": 8,
+            "y": 6
+        },
+        "cell87": {
+            "state": 1,
+            "value": 83,
+            "x": 8,
+            "y": 7
+        },
+        "cell88": {
+            "state": 1,
+            "value": 126,
+            "x": 8,
+            "y": 8
+        },
+        "cell89": {
+            "state": 1,
+            "value": 126,
+            "x": 8,
+            "y": 9
+        },
+        "cell90": {
+            "state": 1,
+            "value": 83,
+            "x": 9,
+            "y": 0
+        },
+        "cell91": {
+            "state": 1,
+            "value": 126,
+            "x": 9,
+            "y": 1
+        },
+        "cell92": {
+            "state": 1,
+            "value": 83,
+            "x": 9,
+            "y": 2
+        },
+        "cell93": {
+            "state": 1,
+            "value": 126,
+            "x": 9,
+            "y": 3
+        },
+        "cell94": {
+            "state": 1,
+            "value": 126,
+            "x": 9,
+            "y": 4
+        },
+        "cell95": {
+            "state": 1,
+            "value": 126,
+            "x": 9,
+            "y": 5
+        },
+        "cell96": {
+            "state": 1,
+            "value": 126,
+            "x": 9,
+            "y": 6
+        },
+        "cell97": {
+            "state": 1,
+            "value": 83,
+            "x": 9,
+            "y": 7
+        },
+        "cell98": {
+            "state": 1,
+            "value": 126,
+            "x": 9,
+            "y": 8
+        },
+        "cell99": {
+            "state": 1,
+            "value": 126,
+            "x": 9,
+            "y": 9
+        },
+        "columns": 10,
+        "rows": 10
+    },
+    "botShipManager": {
+        "ship0": {
+            "horizontal": false,
+            "length": 4,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 7,
+                    "y": 6
+                },
+                {
+                    "health": 0,
+                    "x": 7,
+                    "y": 7
+                },
+                {
+                    "health": 0,
+                    "x": 7,
+                    "y": 8
+                },
+                {
+                    "health": 0,
+                    "x": 7,
+                    "y": 9
+                }
+            ]
+        },
+        "ship1": {
+            "horizontal": false,
+            "length": 3,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 2,
+                    "y": 7
+                },
+                {
+                    "health": 0,
+                    "x": 2,
+                    "y": 8
+                },
+                {
+                    "health": 0,
+                    "x": 2,
+                    "y": 9
+                }
+            ]
+        },
+        "ship2": {
+            "horizontal": true,
+            "length": 3,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 1,
+                    "y": 1
+                },
+                {
+                    "health": 0,
+                    "x": 2,
+                    "y": 1
+                },
+                {
+                    "health": 0,
+                    "x": 3,
+                    "y": 1
+                }
+            ]
+        },
+        "ship3": {
+            "horizontal": false,
+            "length": 2,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 7,
+                    "y": 1
+                },
+                {
+                    "health": 0,
+                    "x": 7,
+                    "y": 2
+                }
+            ]
+        },
+        "ship4": {
+            "horizontal": false,
+            "length": 2,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 0,
+                    "y": 4
+                },
+                {
+                    "health": 0,
+                    "x": 0,
+                    "y": 5
+                }
+            ]
+        },
+        "ship5": {
+            "horizontal": false,
+            "length": 2,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 9,
+                    "y": 3
+                },
+                {
+                    "health": 0,
+                    "x": 9,
+                    "y": 4
+                }
+            ]
+        },
+        "ship6": {
+            "horizontal": true,
+            "length": 1,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 9,
+                    "y": 7
+                }
+            ]
+        },
+        "ship7": {
+            "horizontal": false,
+            "length": 1,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 7,
+                    "y": 4
+                }
+            ]
+        },
+        "ship8": {
+            "horizontal": true,
+            "length": 1,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 0,
+                    "y": 9
+                }
+            ]
+        },
+        "ship9": {
+            "horizontal": true,
+            "length": 1,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 3,
+                    "y": 3
+                }
+            ]
+        }
+    },
+    "playerAbilityManager": {
+        "abilities": [
+            [
+                "Gunblaze"
+            ]
+        ]
+    },
+    "playerField": {
+        "cell00": {
+            "state": 0,
+            "value": 83,
+            "x": 0,
+            "y": 0
+        },
+        "cell01": {
+            "state": 0,
+            "value": 126,
+            "x": 0,
+            "y": 1
+        },
+        "cell02": {
+            "state": 0,
+            "value": 126,
+            "x": 0,
+            "y": 2
+        },
+        "cell03": {
+            "state": 0,
+            "value": 126,
+            "x": 0,
+            "y": 3
+        },
+        "cell04": {
+            "state": 0,
+            "value": 126,
+            "x": 0,
+            "y": 4
+        },
+        "cell05": {
+            "state": 0,
+            "value": 126,
+            "x": 0,
+            "y": 5
+        },
+        "cell06": {
+            "state": 0,
+            "value": 126,
+            "x": 0,
+            "y": 6
+        },
+        "cell07": {
+            "state": 0,
+            "value": 126,
+            "x": 0,
+            "y": 7
+        },
+        "cell08": {
+            "state": 0,
+            "value": 126,
+            "x": 0,
+            "y": 8
+        },
+        "cell09": {
+            "state": 0,
+            "value": 126,
+            "x": 0,
+            "y": 9
+        },
+        "cell10": {
+            "state": 0,
+            "value": 126,
+            "x": 1,
+            "y": 0
+        },
+        "cell11": {
+            "state": 0,
+            "value": 126,
+            "x": 1,
+            "y": 1
+        },
+        "cell12": {
+            "state": 0,
+            "value": 126,
+            "x": 1,
+            "y": 2
+        },
+        "cell13": {
+            "state": 0,
+            "value": 83,
+            "x": 1,
+            "y": 3
+        },
+        "cell14": {
+            "state": 0,
+            "value": 126,
+            "x": 1,
+            "y": 4
+        },
+        "cell15": {
+            "state": 0,
+            "value": 126,
+            "x": 1,
+            "y": 5
+        },
+        "cell16": {
+            "state": 0,
+            "value": 126,
+            "x": 1,
+            "y": 6
+        },
+        "cell17": {
+            "state": 0,
+            "value": 126,
+            "x": 1,
+            "y": 7
+        },
+        "cell18": {
+            "state": 0,
+            "value": 126,
+            "x": 1,
+            "y": 8
+        },
+        "cell19": {
+            "state": 0,
+            "value": 126,
+            "x": 1,
+            "y": 9
+        },
+        "cell20": {
+            "state": 0,
+            "value": 126,
+            "x": 2,
+            "y": 0
+        },
+        "cell21": {
+            "state": 0,
+            "value": 126,
+            "x": 2,
+            "y": 1
+        },
+        "cell22": {
+            "state": 0,
+            "value": 126,
+            "x": 2,
+            "y": 2
+        },
+        "cell23": {
+            "state": 0,
+            "value": 126,
+            "x": 2,
+            "y": 3
+        },
+        "cell24": {
+            "state": 0,
+            "value": 126,
+            "x": 2,
+            "y": 4
+        },
+        "cell25": {
+            "state": 0,
+            "value": 126,
+            "x": 2,
+            "y": 5
+        },
+        "cell26": {
+            "state": 0,
+            "value": 83,
+            "x": 2,
+            "y": 6
+        },
+        "cell27": {
+            "state": 0,
+            "value": 83,
+            "x": 2,
+            "y": 7
+        },
+        "cell28": {
+            "state": 0,
+            "value": 126,
+            "x": 2,
+            "y": 8
+        },
+        "cell29": {
+            "state": 0,
+            "value": 126,
+            "x": 2,
+            "y": 9
+        },
+        "cell30": {
+            "state": 0,
+            "value": 126,
+            "x": 3,
+            "y": 0
+        },
+        "cell31": {
+            "state": 0,
+            "value": 126,
+            "x": 3,
+            "y": 1
+        },
+        "cell32": {
+            "state": 0,
+            "value": 126,
+            "x": 3,
+            "y": 2
+        },
+        "cell33": {
+            "state": 0,
+            "value": 126,
+            "x": 3,
+            "y": 3
+        },
+        "cell34": {
+            "state": 0,
+            "value": 126,
+            "x": 3,
+            "y": 4
+        },
+        "cell35": {
+            "state": 0,
+            "value": 126,
+            "x": 3,
+            "y": 5
+        },
+        "cell36": {
+            "state": 0,
+            "value": 126,
+            "x": 3,
+            "y": 6
+        },
+        "cell37": {
+            "state": 0,
+            "value": 126,
+            "x": 3,
+            "y": 7
+        },
+        "cell38": {
+            "state": 0,
+            "value": 126,
+            "x": 3,
+            "y": 8
+        },
+        "cell39": {
+            "state": 0,
+            "value": 126,
+            "x": 3,
+            "y": 9
+        },
+        "cell40": {
+            "state": 0,
+            "value": 83,
+            "x": 4,
+            "y": 0
+        },
+        "cell41": {
+            "state": 0,
+            "value": 126,
+            "x": 4,
+            "y": 1
+        },
+        "cell42": {
+            "state": 0,
+            "value": 83,
+            "x": 4,
+            "y": 2
+        },
+        "cell43": {
+            "state": 0,
+            "value": 126,
+            "x": 4,
+            "y": 3
+        },
+        "cell44": {
+            "state": 0,
+            "value": 83,
+            "x": 4,
+            "y": 4
+        },
+        "cell45": {
+            "state": 0,
+            "value": 126,
+            "x": 4,
+            "y": 5
+        },
+        "cell46": {
+            "state": 0,
+            "value": 126,
+            "x": 4,
+            "y": 6
+        },
+        "cell47": {
+            "state": 0,
+            "value": 126,
+            "x": 4,
+            "y": 7
+        },
+        "cell48": {
+            "state": 0,
+            "value": 83,
+            "x": 4,
+            "y": 8
+        },
+        "cell49": {
+            "state": 0,
+            "value": 126,
+            "x": 4,
+            "y": 9
+        },
+        "cell50": {
+            "state": 0,
+            "value": 83,
+            "x": 5,
+            "y": 0
+        },
+        "cell51": {
+            "state": 0,
+            "value": 126,
+            "x": 5,
+            "y": 1
+        },
+        "cell52": {
+            "state": 0,
+            "value": 83,
+            "x": 5,
+            "y": 2
+        },
+        "cell53": {
+            "state": 0,
+            "value": 126,
+            "x": 5,
+            "y": 3
+        },
+        "cell54": {
+            "state": 0,
+            "value": 83,
+            "x": 5,
+            "y": 4
+        },
+        "cell55": {
+            "state": 0,
+            "value": 126,
+            "x": 5,
+            "y": 5
+        },
+        "cell56": {
+            "state": 0,
+            "value": 126,
+            "x": 5,
+            "y": 6
+        },
+        "cell57": {
+            "state": 0,
+            "value": 126,
+            "x": 5,
+            "y": 7
+        },
+        "cell58": {
+            "state": 0,
+            "value": 83,
+            "x": 5,
+            "y": 8
+        },
+        "cell59": {
+            "state": 0,
+            "value": 126,
+            "x": 5,
+            "y": 9
+        },
+        "cell60": {
+            "state": 0,
+            "value": 83,
+            "x": 6,
+            "y": 0
+        },
+        "cell61": {
+            "state": 0,
+            "value": 126,
+            "x": 6,
+            "y": 1
+        },
+        "cell62": {
+            "state": 0,
+            "value": 83,
+            "x": 6,
+            "y": 2
+        },
+        "cell63": {
+            "state": 0,
+            "value": 126,
+            "x": 6,
+            "y": 3
+        },
+        "cell64": {
+            "state": 0,
+            "value": 126,
+            "x": 6,
+            "y": 4
+        },
+        "cell65": {
+            "state": 0,
+            "value": 126,
+            "x": 6,
+            "y": 5
+        },
+        "cell66": {
+            "state": 0,
+            "value": 126,
+            "x": 6,
+            "y": 6
+        },
+        "cell67": {
+            "state": 0,
+            "value": 126,
+            "x": 6,
+            "y": 7
+        },
+        "cell68": {
+            "state": 0,
+            "value": 126,
+            "x": 6,
+            "y": 8
+        },
+        "cell69": {
+            "state": 0,
+            "value": 126,
+            "x": 6,
+            "y": 9
+        },
+        "cell70": {
+            "state": 0,
+            "value": 126,
+            "x": 7,
+            "y": 0
+        },
+        "cell71": {
+            "state": 0,
+            "value": 126,
+            "x": 7,
+            "y": 1
+        },
+        "cell72": {
+            "state": 0,
+            "value": 83,
+            "x": 7,
+            "y": 2
+        },
+        "cell73": {
+            "state": 0,
+            "value": 126,
+            "x": 7,
+            "y": 3
+        },
+        "cell74": {
+            "state": 0,
+            "value": 126,
+            "x": 7,
+            "y": 4
+        },
+        "cell75": {
+            "state": 0,
+            "value": 126,
+            "x": 7,
+            "y": 5
+        },
+        "cell76": {
+            "state": 0,
+            "value": 126,
+            "x": 7,
+            "y": 6
+        },
+        "cell77": {
+            "state": 0,
+            "value": 126,
+            "x": 7,
+            "y": 7
+        },
+        "cell78": {
+            "state": 0,
+            "value": 126,
+            "x": 7,
+            "y": 8
+        },
+        "cell79": {
+            "state": 0,
+            "value": 83,
+            "x": 7,
+            "y": 9
+        },
+        "cell80": {
+            "state": 0,
+            "value": 126,
+            "x": 8,
+            "y": 0
+        },
+        "cell81": {
+            "state": 0,
+            "value": 126,
+            "x": 8,
+            "y": 1
+        },
+        "cell82": {
+            "state": 0,
+            "value": 126,
+            "x": 8,
+            "y": 2
+        },
+        "cell83": {
+            "state": 0,
+            "value": 126,
+            "x": 8,
+            "y": 3
+        },
+        "cell84": {
+            "state": 0,
+            "value": 126,
+            "x": 8,
+            "y": 4
+        },
+        "cell85": {
+            "state": 0,
+            "value": 126,
+            "x": 8,
+            "y": 5
+        },
+        "cell86": {
+            "state": 0,
+            "value": 126,
+            "x": 8,
+            "y": 6
+        },
+        "cell87": {
+            "state": 0,
+            "value": 126,
+            "x": 8,
+            "y": 7
+        },
+        "cell88": {
+            "state": 0,
+            "value": 126,
+            "x": 8,
+            "y": 8
+        },
+        "cell89": {
+            "state": 0,
+            "value": 126,
+            "x": 8,
+            "y": 9
+        },
+        "cell90": {
+            "state": 0,
+            "value": 126,
+            "x": 9,
+            "y": 0
+        },
+        "cell91": {
+            "state": 0,
+            "value": 126,
+            "x": 9,
+            "y": 1
+        },
+        "cell92": {
+            "state": 0,
+            "value": 126,
+            "x": 9,
+            "y": 2
+        },
+        "cell93": {
+            "state": 0,
+            "value": 126,
+            "x": 9,
+            "y": 3
+        },
+        "cell94": {
+            "state": 0,
+            "value": 83,
+            "x": 9,
+            "y": 4
+        },
+        "cell95": {
+            "state": 0,
+            "value": 83,
+            "x": 9,
+            "y": 5
+        },
+        "cell96": {
+            "state": 0,
+            "value": 83,
+            "x": 9,
+            "y": 6
+        },
+        "cell97": {
+            "state": 0,
+            "value": 126,
+            "x": 9,
+            "y": 7
+        },
+        "cell98": {
+            "state": 0,
+            "value": 83,
+            "x": 9,
+            "y": 8
+        },
+        "cell99": {
+            "state": 0,
+            "value": 126,
+            "x": 9,
+            "y": 9
+        },
+        "columns": 10,
+        "rows": 10
+    },
+    "playerShipManager": {
+        "ship0": {
+            "horizontal": false,
+            "length": 4,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 2,
+                    "y": 4
+                },
+                {
+                    "health": 0,
+                    "x": 2,
+                    "y": 5
+                },
+                {
+                    "health": 0,
+                    "x": 2,
+                    "y": 6
+                },
+                {
+                    "health": 0,
+                    "x": 2,
+                    "y": 7
+                }
+            ]
+        },
+        "ship1": {
+            "horizontal": true,
+            "length": 3,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 4,
+                    "y": 9
+                },
+                {
+                    "health": 0,
+                    "x": 5,
+                    "y": 9
+                },
+                {
+                    "health": 0,
+                    "x": 6,
+                    "y": 9
+                }
+            ]
+        },
+        "ship2": {
+            "horizontal": false,
+            "length": 3,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 0,
+                    "y": 4
+                },
+                {
+                    "health": 0,
+                    "x": 0,
+                    "y": 5
+                },
+                {
+                    "health": 0,
+                    "x": 0,
+                    "y": 6
+                }
+            ]
+        },
+        "ship3": {
+            "horizontal": false,
+            "length": 2,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 8,
+                    "y": 4
+                },
+                {
+                    "health": 0,
+                    "x": 8,
+                    "y": 5
+                }
+            ]
+        },
+        "ship4": {
+            "horizontal": false,
+            "length": 2,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 4,
+                    "y": 4
+                },
+                {
+                    "health": 0,
+                    "x": 4,
+                    "y": 5
+                }
+            ]
+        },
+        "ship5": {
+            "horizontal": true,
+            "length": 2,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 6,
+                    "y": 2
+                },
+                {
+                    "health": 0,
+                    "x": 7,
+                    "y": 2
+                }
+            ]
+        },
+        "ship6": {
+            "horizontal": false,
+            "length": 1,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 3,
+                    "y": 1
+                }
+            ]
+        },
+        "ship7": {
+            "horizontal": false,
+            "length": 1,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 8,
+                    "y": 9
+                }
+            ]
+        },
+        "ship8": {
+            "horizontal": true,
+            "length": 1,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 0,
+                    "y": 0
+                }
+            ]
+        },
+        "ship9": {
+            "horizontal": true,
+            "length": 1,
+            "segments": [
+                {
+                    "health": 0,
+                    "x": 9,
+                    "y": 7
+                }
+            ]
+        }
+    }
+}

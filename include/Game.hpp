@@ -5,21 +5,21 @@
 #include "../include/Field.hpp"
 #include "../include/Painter.hpp"
 #include "../include/Player.hpp"
+#include "../include/GameState.hpp"
 #include "../include/Abilities.hpp"
 #include "../include/AbilityManager.hpp"
 #include "../include/Exceptions/InvalidShipSizeException.hpp"
-
-// #include "json.hpp"
 
 class Game {
     private:
         Player player;
         Bot bot;
+        GameState gameState;
         bool isPlayerWin;
         bool isBotWin;
     public:
-        Game(Player player, Bot bot) 
-            : player(player), bot(bot), isPlayerWin(false), isBotWin(false) {}
+        Game(Player player, Bot bot, GameState gameState) 
+            : player(player), bot(bot), gameState(gameState), isPlayerWin(false), isBotWin(false) {}
             
         void usePlayerAbility();
         void doPlayerAttack();
@@ -30,6 +30,7 @@ class Game {
         void resetGame();
         void isGameEnded();
 
-        // friend void to_json(nlohmann::json& j, const Game& game);
-        // friend void from_json(nlohmann::json& j, const Game& game);
+        void loadGame(const std::string& file);
+        void saveGame(const std::string& file);
+
 };

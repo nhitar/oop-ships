@@ -12,10 +12,10 @@ void Game::usePlayerAbility() {
         Coordinate coordinate = {-1, -1};
         AbilityParameters ap(player.getField(), player.getShipManager(), coordinate, player.getCurrentDamage());
         player.getAbilityManager().checkIfEmpty();
-        painter.printAbilityName(player.getAbilityManager().getCreator().getName());
+        painter.printAbilityName(player.getAbilityManager().getCreator(0).getName());
 
         try {
-            if (player.getAbilityManager().getCreator().isUsingCoordinate()) {
+            if (player.getAbilityManager().getCreator(0).isUsingCoordinate()) {
                 std::cout << "Give coordinates for ability." << std::endl;
                 std::cin >> x >> y;
                 ap.coordinate = {x, y};
@@ -151,16 +151,10 @@ void Game::isGameEnded() {
     }
 }
 
-// void Game::to_json(nlohmann::json& j, const Game& game) {
-//     j = nlohmann::json {
-//         {"player", game.player},
-//         {"bot", game.bot},
-//         {"isPlayerWin", game.isPlayerWin}
-//     };
-// }
+void Game::loadGame(const std::string& file) {
 
-// void Game::from_json(nlohmann::json& j, const Game& game) {
-//     j.at("player").get_to(game.player);
-//     j.at("bot").get_to(game.bot);
-//     j.at("isPlayerWin").get_to(game.isPlayerWin);
-// }
+}
+
+void Game::saveGame(const std::string& file) {
+    this->gameState.saveGame(file);
+}   
