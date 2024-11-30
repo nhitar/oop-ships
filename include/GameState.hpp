@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Serialization.hpp"
+#include "Deserialization.hpp"
 #include "Player.hpp"
 
 #include <fstream>

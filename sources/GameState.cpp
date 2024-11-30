@@ -1,4 +1,5 @@
 #include "../include/GameState.hpp"
+#include <fstream>
 
 void GameState::saveGame(const std::string& file) {
     nlohmann::json j;
@@ -23,5 +24,21 @@ void GameState::saveGame(const std::string& file) {
 }
 
 void GameState::loadGame(const std::string& file) {
+    nlohmann::json j;
 
+    std::ifstream inputFile(file);
+    if (!inputFile.is_open()) {
+        throw std::runtime_error("Failed to open file: " + file);
+    }
+
+    inputFile >> j;
+
+    inputFile.close();
+
+    Deserialization deseri(j);
+    deseri.from_json(player.getShipManager(), "playerShipManager");
+    deseri.from_json(player.getField(), "playerField");
+    deseri.from_json(player.getAbilityManager(), "playerAbilityManager");
+    deseri.from_json(bot.getShipManager(), "botShipManager");
+    deseri.from_json(bot.getField(), "botField");
 }
