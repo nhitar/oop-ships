@@ -20,6 +20,7 @@ class Field {
         int columns;
         std::vector<Cell> field;
     public:
+        Field() : rows(0), columns(0) {};
         Field(int rows, int columns);
         Field(const Field& other);
         Field& operator=(const Field& other);
@@ -37,7 +38,6 @@ class Field {
         
         bool placeShip(Ship* ship, Coordinate coordinate);
         void placeShipRandomly(Ship* ship);
-        void initField(std::vector<Ship*> ships);
         
         bool attack(Coordinate coordinate);
         Coordinate attackRandomly();

@@ -9,19 +9,18 @@ class Ship {
     private:
         int length;
         Orientation orientation;
-        std::vector<Segment*> segments;
+        std::vector<Segment> segments;
     public:
         Ship(int length);
-        ~Ship();
 
         int getLength() const;
-        std::vector<Segment*> getSegments() const;
+        Segment* getSegment(int index);
 
         bool isHorizontal() const;
-        void changeOrientation();
+        void setOrientation(Orientation newOrientation);
         bool isDestroyed() const;
         
         void setCoordinate(Coordinate coordinate);
         
-        void printStatus() const;
+        void printStatus();
 };

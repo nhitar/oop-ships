@@ -110,8 +110,8 @@ bool Field::placeShip(Ship* ship, Coordinate coordinate) {
         }
 
         for (int i = 0; i < ship->getLength(); i++) {
-            ship->getSegments()[i]->coordinate = Coordinate{coordinate.x, coordinate.y + i};
-            field[coordinate.y*this->columns + coordinate.x + i].segment = ship->getSegments()[i];
+            ship->getSegment(i)->coordinate = Coordinate{coordinate.x, coordinate.y + i};
+            field[coordinate.y*this->columns + coordinate.x + i].segment = ship->getSegment(i);
             field[coordinate.y*this->columns + coordinate.x + i].value = CellValue::ShipPart;
         }
         return true;
@@ -134,8 +134,8 @@ bool Field::placeShip(Ship* ship, Coordinate coordinate) {
     }
 
     for (int i = 0; i < ship->getLength(); i++) {
-        ship->getSegments()[i]->coordinate = Coordinate{coordinate.x + i, coordinate.y};
-        field[(coordinate.y + i)*this->columns + coordinate.x].segment = ship->getSegments()[i];
+        ship->getSegment(i)->coordinate = Coordinate{coordinate.x + i, coordinate.y};
+        field[(coordinate.y + i)*this->columns + coordinate.x].segment = ship->getSegment(i);
         field[(coordinate.y + i)*this->columns + coordinate.x].value = CellValue::ShipPart;
     }
     return true;
@@ -155,7 +155,7 @@ void Field::placeShipRandomly(Ship* ship) {
         int randOrientation = disOrientation(gen);
 
         if (randOrientation == 1) {
-            ship->changeOrientation();
+            ship->setOrientation(Orientation::Vertical);
         }
         try {
             if (this->placeShip(ship, {randomX, randomY})) {
@@ -170,12 +170,6 @@ void Field::placeShipRandomly(Ship* ship) {
             }
             continue;
         }
-    }
-}
-
-void Field::initField(std::vector<Ship*> fleet) {
-    for (auto& ship : fleet) {
-        this->placeShipRandomly(ship);
     }
 }
 
@@ -242,11 +236,11 @@ void Field::revealCells() {
 }
 
 void Field::revealCoordinatesAround(Ship* ship) {
-    for (auto& segment : ship->getSegments()) {
+    for (int k = 0; k < ship->getLength(); k++) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (!checkCoordinates({segment->coordinate.x + i, segment->coordinate.y + j})) {
-                    Cell& fieldCell = this->field[this->columns*(segment->coordinate.y + j) + segment->coordinate.x + i];
+                if (!checkCoordinates({ship->getSegment(k)->coordinate.x + i, ship->getSegment(k)->coordinate.y + j})) {
+                    Cell& fieldCell = this->field[this->columns*(ship->getSegment(k)->coordinate.y + j) + ship->getSegment(k)->coordinate.x + i];
                     if (fieldCell.value != CellValue::WaterHidden) {
                         continue;
                     }

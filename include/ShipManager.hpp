@@ -7,19 +7,18 @@
 
 class ShipManager {
     private:
-        std::vector<Ship*>ships;
+        std::vector<Ship> ships;
         int shipCount;
     public:
+        ShipManager() : ships({}) {};
         ShipManager(int shipCount, std::vector<int> shipSizes);
-        ~ShipManager();
- 
-        Ship* getShip(Coordinate coordinate) const;
-        std::vector<Ship*> getShips() const;
+
+        Ship& getShipByIndex(int index);
         
         int getShipCount() const;
         void setShipCount(int count);
 
         void addShip(int length);
         
-        void printShips() const;
+        void printShips();
 };

@@ -18,18 +18,21 @@ int main() {
         painter.printException(e);
        return 0;
     }
-    ShipManager enemyShips = ShipManager(10, shipSizes);
-    ShipManager selfShips = ShipManager(10, shipSizes);
+    ShipManager enemyShips = ShipManager(shipSizes.size(), shipSizes);
+    ShipManager selfShips = ShipManager(shipSizes.size(), shipSizes);
     
     try {
-        enemyField.initField(enemyShips.getShips());
-        selfField.initField(selfShips.getShips());
+        for (size_t i = 0; i < shipSizes.size(); i++) {
+            selfField.placeShipRandomly(&selfShips.getShipByIndex(i));
+            enemyField.placeShipRandomly(&enemyShips.getShipByIndex(i));
+        }
     }
     catch (UnableToPlaceShipsException& e) {
         painter.printException(e);
         return 0;
     }
     selfField.revealCells();
+    enemyField.revealCells(); // remove
     painter.printFields(selfField, enemyField);
     AbilityManager abilityManager;
     Player player = Player(enemyShips, enemyField, abilityManager);

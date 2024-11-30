@@ -56,15 +56,15 @@ void Game::doPlayerAttack() {
     }
     player.setCurrentDamage(1);
 
-    Ship* enemyShip = player.getShipManager().getShip({x, y});
-    if (enemyShip->getLength() != 0 && enemyShip->isDestroyed()) {
-        player.getField().revealCoordinatesAround(enemyShip);
-        player.getShipManager().setShipCount(player.getShipManager().getShipCount() - 1);
+    // Ship* enemyShip = player.getShipManager().getShipByCoordinate({x, y});
+    // if (enemyShip->getLength() != 0 && enemyShip->isDestroyed()) {
+    //     player.getField().revealCoordinatesAround(enemyShip);
+    //     player.getShipManager().setShipCount(player.getShipManager().getShipCount() - 1);
         
-        std::cout << "Ability added." << std::endl;
-        player.getAbilityManager().giveRandomAbility();
+    //     std::cout << "Ability added." << std::endl;
+    //     player.getAbilityManager().giveRandomAbility();
 
-    }
+    // }
     return;
 }
 
@@ -78,11 +78,11 @@ void Game::doBotAttack() {
         painter.printException(e);
         return;
     }
-    Ship* selfShip = bot.getShipManager().getShip(coords);
-    if (selfShip->getLength() != 0 && selfShip->isDestroyed()) {
-        bot.getField().revealCoordinatesAround(selfShip);
-        bot.getShipManager().setShipCount(bot.getShipManager().getShipCount() - 1);
-    }
+    // Ship* selfShip = bot.getShipManager().getShipByCoordinate(coords);
+    // if (selfShip->getLength() != 0 && selfShip->isDestroyed()) {
+    //     bot.getField().revealCoordinatesAround(selfShip);
+    //     bot.getShipManager().setShipCount(bot.getShipManager().getShipCount() - 1);
+    // }
     return;
 }
 
@@ -123,7 +123,9 @@ void Game::resetBot() {
     
     Field newField = Field(10, 10);
     ShipManager newShips = ShipManager(10, shipSizes);
-    newField.initField(newShips.getShips());
+    for (size_t i = 0; i < shipSizes.size(); i++) {
+        newField.placeShipRandomly(&newShips.getShipByIndex(i));
+    }
     this->player = Player(newShips, newField, player.getAbilityManager());
 }
 
@@ -133,7 +135,9 @@ void Game::resetGame() {
     
     Field newField = Field(10, 10);
     ShipManager newShips = ShipManager(10, shipSizes);
-    newField.initField(newShips.getShips());
+    for (size_t i = 0; i < shipSizes.size(); i++) {
+        newField.placeShipRandomly(&newShips.getShipByIndex(i));
+    }
     newField.revealCells();
     this->bot = Bot(newShips, newField);
 }
@@ -152,7 +156,7 @@ void Game::isGameEnded() {
 }
 
 void Game::loadGame(const std::string& file) {
-
+    this->gameState.loadGame(file);
 }
 
 void Game::saveGame(const std::string& file) {

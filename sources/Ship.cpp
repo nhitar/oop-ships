@@ -3,13 +3,7 @@
 Ship::Ship(int length) : length(length) {
     this->orientation = Orientation::Horizontal;
     for (int i = 0; i < length; i++) {
-        this->segments.push_back(new Segment());
-    }
-}
-
-Ship::~Ship() {
-    for (auto& segment : this->segments) {
-        delete segment;
+        this->segments.push_back(Segment());
     }
 }
 
@@ -17,8 +11,8 @@ int Ship::getLength() const {
     return this->length;
 }
 
-std::vector<Segment*> Ship::getSegments() const {
-    return this->segments;
+Segment* Ship::getSegment(int index) {
+    return &this->segments[index];
 }
 
 bool Ship::isHorizontal() const {
@@ -28,8 +22,8 @@ bool Ship::isHorizontal() const {
     return false;
 }
 
-void Ship::changeOrientation() {
-    if (this->orientation == Orientation::Horizontal) {
+void Ship::setOrientation(Orientation newOrientation) {
+    if (newOrientation == Orientation::Horizontal) {
         this->orientation = Orientation::Vertical;
         return;
     }
@@ -38,7 +32,7 @@ void Ship::changeOrientation() {
 
 bool Ship::isDestroyed() const {
     for (auto& segment : this->segments) {
-        if (segment->health != SegmentHealth::Destroyed) {
+        if (segment.health != SegmentHealth::Destroyed) {
             return false;
         }
     }
@@ -49,17 +43,17 @@ void Ship::setCoordinate(Coordinate coordinate) {
     int i = 0;
     for (auto& segment : this->segments) {
         if (this->orientation == Orientation::Horizontal) {
-            segment->coordinate.x = coordinate.x + i;
-            segment->coordinate.y = coordinate.y;
+            segment.coordinate.x = coordinate.x + i;
+            segment.coordinate.y = coordinate.y;
         } else {
-            segment->coordinate.x = coordinate.x;
-            segment->coordinate.y = coordinate.y + i;
+            segment.coordinate.x = coordinate.x;
+            segment.coordinate.y = coordinate.y + i;
         }
         ++i;
     }
 }
 
-void Ship::printStatus() const {
+void Ship::printStatus()  {
     std::cout << "length: " << this->length  << std::endl;
     switch(this->orientation) {
         case Orientation::Horizontal:
@@ -71,9 +65,8 @@ void Ship::printStatus() const {
     }
     std::cout << "Segments health:" << std::endl;
 
-    std::vector<Segment*> segments = this->getSegments();
-    for (auto segment : segments) {
-        switch(segment->health) {
+    for (int i = 0; i < this->length; i++) {
+        switch(getSegment(i)->health) {
             case SegmentHealth::Untouched:
                 std::cout << "Untouched" << std::endl;
                 break;
