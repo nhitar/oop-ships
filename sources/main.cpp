@@ -39,7 +39,7 @@ int main() {
     AbilityManager abilityManager;
     Player player = Player(enemyShips, enemyField, abilityManager);
     Bot bot = Bot(selfShips, selfField);
-    GameState gameState = GameState(player, bot, painter);
+    GameState gameState = GameState(player, bot);
     Game game = Game(player, bot, gameState, painter);
     bool gameEnder = false;
 

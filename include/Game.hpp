@@ -1,14 +1,15 @@
 #pragma once
 
-#include "../include/Ship.hpp"
-#include "../include/ShipManager.hpp"
-#include "../include/Field.hpp"
-#include "../include/Painter.hpp"
-#include "../include/Player.hpp"
-#include "../include/GameState.hpp"
-#include "../include/Abilities.hpp"
-#include "../include/AbilityManager.hpp"
-#include "../include/Exceptions/InvalidShipSizeException.hpp"
+#include "Ship.hpp"
+#include "ShipManager.hpp"
+#include "Field.hpp"
+#include "Painter.hpp"
+#include "Player.hpp"
+#include "GameState.hpp"
+#include "Abilities.hpp"
+#include "AbilityManager.hpp"
+#include "Exceptions/InvalidShipSizeException.hpp"
+#include "Exceptions/InvalidCoordinateException.hpp"
 
 class Game {
     private:

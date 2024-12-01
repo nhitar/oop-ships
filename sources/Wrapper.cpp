@@ -9,14 +9,14 @@ Wrapper::~Wrapper() {
 
 void Wrapper::read(nlohmann::json& j) {
     if (!file.is_open() || !file.good()) {
-        //throw FileOpeningException();
+        throw UnableToOpenFileException();
     }
     file >> j;
 }
 
 void Wrapper::write(nlohmann::json& j) {
     if (!file.is_open() || !file.good()) {
-        //throw FileOpeningException();
+        throw UnableToOpenFileException();
     }
     file << j.dump(4);
 }

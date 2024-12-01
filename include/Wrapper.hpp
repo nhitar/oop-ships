@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Exceptions/UnableToOpenFileException.hpp"
 #include <nlohmann/json.hpp>
 
 #include <iostream>

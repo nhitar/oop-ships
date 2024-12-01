@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../include/ShipManager.hpp"
-#include "../include/Field.hpp"
-#include "../include/AbilityManager.hpp"
-#include "../include/Painter.hpp"
-#include "../include/AbilityParameters.hpp"
+#include "ShipManager.hpp"
+#include "Field.hpp"
+#include "AbilityManager.hpp"
+#include "Painter.hpp"
+#include "AbilityParameters.hpp"
 
 class Unit {
     protected:

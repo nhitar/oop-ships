@@ -5,6 +5,7 @@
 #include "Painter.hpp"
 #include "Player.hpp"
 #include "Wrapper.hpp"
+#include "Exceptions/UnableToOpenFileException.hpp"
 
 #include <fstream>
 
@@ -12,9 +13,11 @@ class GameState {
     public:
         Player& player;
         Bot& bot;
-        Painter& painter;
     public:
-        GameState(Player& player, Bot& bot, Painter& painter) : player(player), bot(bot), painter(painter) {};
-        void saveGame(const std::string& file);
+        GameState(Player& player, Bot& bot) : player(player), bot(bot) {};
+        
+        void placeShips(ShipManager& shipManager, Field& field);
+        
         void loadGame(const std::string& file);
+        void saveGame(const std::string& file);
 };

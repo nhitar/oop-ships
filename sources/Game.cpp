@@ -33,11 +33,20 @@ void Game::doPlayerAttack() {
     while (true) {
         try {
             std::cin >> x >> y;
+            if (std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                throw InvalidCoordinateException();
+            }
+            
             for (int i = 0; i < player.getCurrentDamage(); i++) {
                 player.getField().attack({x, y});
                 successAttack = true;
             }
-
+        }
+        catch (InvalidCoordinateException& e) {
+            painter.printException(e);
+            continue;
         }
         catch (RevealedCellAttackException& e) {
             if (successAttack) {
@@ -109,6 +118,8 @@ void Game::playTurns() {
         this->isBotWin = true;
         return;
     }
+    // for (int i = 0; i < 10; i++)
+    //     this->painter.printShip(this->player.getShipManager().getShipByIndex(i));
 
     painter.printFields(this->bot.getField(), this->player.getField());
 }
