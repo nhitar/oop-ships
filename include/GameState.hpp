@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Wrapper.hpp"
 #include "Serialization.hpp"
 #include "Deserialization.hpp"
 #include "Player.hpp"

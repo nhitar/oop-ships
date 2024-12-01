@@ -4,22 +4,21 @@
 void Serialization::to_json(ShipManager& shipManager, std::string key) {
     nlohmann::json jsm = nlohmann::json{};
 
-    std::vector<Ship*> temp = shipManager.getShips();
     for (int i = 0; i < shipManager.getShipCount(); i++) {
+        Ship& temp = shipManager.getShipByIndex(i);
         std::string key = "ship" + std::to_string(i);
         jsm[key] = {
-            {"length", temp[i]->getLength()},
-            {"horizontal", temp[i]->isHorizontal()},
+            {"length", temp.getLength()},
+            {"horizontal", temp.isHorizontal()},
             {"segments", nlohmann::json::array()}
         }; 
 
-        std::vector<Segment*> tempShip = temp[i]->getSegments();
-
-        for (int j = 0; j < temp[i]->getLength(); j++) {
+        for (int j = 0; j < temp.getLength(); j++) {
+            Segment* tempSegment = temp.getSegment(j);
             jsm[key]["segments"].push_back({
-                {"x", tempShip[j]->coordinate.x},
-                {"y", tempShip[j]->coordinate.y},
-                {"health", tempShip[j]->health}
+                {"x", tempSegment->coordinate.x},
+                {"y", tempSegment->coordinate.y},
+                {"health", tempSegment->health}
             });
         }
     }
@@ -41,7 +40,7 @@ void Serialization::to_json(Field& field, std::string key) {
                 {"x", temp[y*field.getRows() + x].coordinate.x},
                 {"y", temp[y*field.getRows() + x].coordinate.y},
                 {"state", temp[y*field.getRows() + x].state}, // уточнить значения
-                {"value", char(temp[y*field.getRows() + x].value)} // уточнить значения
+                {"value", temp[y*field.getRows() + x].value} // уточнить значения
             };
         }
     }
@@ -54,7 +53,7 @@ void  Serialization::to_json(AbilityManager& abilityManager, std::string key) {
 
     for (int i = 0; i < abilityManager.getAbilityCount(); i++) {
         jam["abilities"].push_back(
-            {abilityManager.getCreator(i).getName()}
+            abilityManager.getCreator(i).getName()
         );
     }
 
