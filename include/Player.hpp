@@ -22,18 +22,16 @@ class Unit {
 class Player : public Unit {
     private:
         AbilityManager& abilityManager;
-        int currentDamage;
     public:
         Player(ShipManager& shipManager, Field& field, AbilityManager& abilityManager)
-            : Unit(shipManager, field), abilityManager(abilityManager), currentDamage(1) {}
+            : Unit(shipManager, field), abilityManager(abilityManager) {}
         Player(const Player& other)
-            : Unit(other.shipManager, other.field), abilityManager(other.abilityManager), currentDamage(other.currentDamage) {}
+            : Unit(other.shipManager, other.field), abilityManager(other.abilityManager) {}
         Player& operator=(const Player& other) {
             if (this != &other) {
                 this->shipManager = other.shipManager;
                 this->field = other.field;
                 this->abilityManager = other.abilityManager;
-                this->currentDamage = other.currentDamage;
             }
             return *this;
         }
@@ -41,8 +39,6 @@ class Player : public Unit {
         ShipManager& getShipManager() override { return shipManager; };
         Field& getField() override { return field; };
         AbilityManager& getAbilityManager() { return abilityManager; };
-        int& getCurrentDamage() { return currentDamage; };
-        void setCurrentDamage(int damage) { currentDamage = damage; };
 };
 
 class Bot : public Unit {

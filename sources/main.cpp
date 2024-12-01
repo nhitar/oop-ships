@@ -36,6 +36,7 @@ int main() {
 
     selfField.revealCells();
     painter.printFields(selfField, enemyField);
+    
     AbilityManager abilityManager;
     Player player = Player(enemyShips, enemyField, abilityManager);
     Bot bot = Bot(selfShips, selfField);

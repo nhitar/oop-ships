@@ -9,7 +9,7 @@ void Game::usePlayerAbility() {
 
     if (result == "y" || result == "Y") {
         Coordinate coordinate = {-1, -1};
-        AbilityParameters ap(player.getField(), player.getShipManager(), coordinate, player.getCurrentDamage());
+        AbilityParameters ap(player.getField(), player.getShipManager(), coordinate, gameState.getCurrentDamage());
         player.getAbilityManager().checkIfEmpty();
         painter.printAbilityName(player.getAbilityManager().getCreator(0).getName());
 
@@ -40,7 +40,7 @@ void Game::doPlayerAttack() {
                 throw InvalidCoordinateException();
             }
             
-            for (int i = 0; i < player.getCurrentDamage(); i++) {
+            for (int i = 0; i < gameState.getCurrentDamage(); i++) {
                 player.getField().attack({x, y});
                 successAttack = true;
             }
@@ -62,7 +62,7 @@ void Game::doPlayerAttack() {
         }
         break;
     }
-    player.setCurrentDamage(1);
+    this->gameState.setCurrentDamage(1);
 
     Ship* enemyShip = player.getShipManager().getShipByCoordinate({x, y});
     if (enemyShip != nullptr && enemyShip->isDestroyed()) {
@@ -220,7 +220,7 @@ void Game::loadGame(const std::string& file) {
         this->gameState.loadGame(file);
     } catch (nlohmann::json::exception& e) {
         std::cerr << "Error parsing JSON: " << e.what() << std::endl;
-        exit(1);
+       return;
     }
 }
 

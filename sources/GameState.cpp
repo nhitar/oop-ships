@@ -9,7 +9,7 @@ Wrapper& operator<<(Wrapper& fileWrapper, GameState& state) {
     seri.to_json(state.getPlayer().getAbilityManager(), "playerAbilityManager");
     seri.to_json(state.getBot().getShipManager(), "botShipManager");
     seri.to_json(state.getBot().getField(), "botField");
-    j["currentDamage"] = state.getPlayer().getCurrentDamage();
+    j["currentDamage"] = state.getCurrentDamage();
     j["isAbilityUsed"] = state.getIsAbilityUsed();
 
     try {
@@ -34,13 +34,29 @@ Wrapper& operator>>(Wrapper& fileWrapper, GameState& state) {
     }
 
     Deserialization deseri(j);
-    deseri.from_json(state.getPlayer().getShipManager(), "playerShipManager");
-    deseri.from_json(state.getPlayer().getField(), "playerField");
-    deseri.from_json(state.getPlayer().getAbilityManager(), "playerAbilityManager");
-    deseri.from_json(state.getBot().getShipManager(), "botShipManager");
-    deseri.from_json(state.getBot().getField(), "botField");
-    state.getPlayer().setCurrentDamage(j.at("currentDamage"));
+    ShipManager shipManager;
+    Field field;
+    AbilityManager abilityManager;
+
+    ShipManager enemyShipManager;
+    Field enemyField;
+
+    deseri.from_json(shipManager, "playerShipManager");
+    deseri.from_json(field, "playerField");
+    deseri.from_json(abilityManager, "playerAbilityManager");
+
+    deseri.from_json(enemyShipManager, "botShipManager");
+    deseri.from_json(enemyField, "botField");
+
+    state.setCurrentDamage(j.at("currentDamage"));
     state.setIsAbilityUsed(j.at("isAbilityUsed"));
+
+    state.getPlayer().getShipManager() = shipManager;
+    state.getPlayer().getField() = field;
+    state.getPlayer().getAbilityManager() = abilityManager;
+
+    state.getBot().getShipManager() = enemyShipManager;
+    state.getBot().getField() = enemyField;
 
     state.placeShips(state.getPlayer().getShipManager(), state.getPlayer().getField());
     state.placeShips(state.getBot().getShipManager(), state.getBot().getField());

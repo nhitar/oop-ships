@@ -14,8 +14,10 @@ class GameState {
         Player& player;
         Bot& bot;
         bool isAbilityUsed;
+        int currentDamage;
+        
     public:
-        GameState(Player& player, Bot& bot) : player(player), bot(bot), isAbilityUsed(false) {};
+        GameState(Player& player, Bot& bot) : player(player), bot(bot), isAbilityUsed(false), currentDamage(1) {};
         
         void placeShips(ShipManager& shipManager, Field& field);
         
@@ -24,6 +26,10 @@ class GameState {
 
         Player& getPlayer() { return this->player; };
         Bot& getBot() { return this->bot; };
+
         bool& getIsAbilityUsed() { return this->isAbilityUsed; };
         void setIsAbilityUsed(bool value) { this->isAbilityUsed = value; };
+        
+        int& getCurrentDamage() { return this->currentDamage; };
+        void setCurrentDamage(int damage) { this->currentDamage = damage; };
 };
