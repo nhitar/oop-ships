@@ -10,7 +10,7 @@
 #include <fstream>
 
 class GameState {
-    public:
+    private:
         Player& player;
         Bot& bot;
     public:

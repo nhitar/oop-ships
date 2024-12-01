@@ -7,6 +7,7 @@
 #include <fstream>
 
 class Wrapper {
+private:
     std::fstream file;
 public:
     Wrapper(const std::string& filename);

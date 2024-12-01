@@ -41,6 +41,7 @@ int main() {
     Bot bot = Bot(selfShips, selfField);
     GameState gameState = GameState(player, bot);
     Game game = Game(player, bot, gameState, painter);
+    const std::string file = "/home/nhitar/oop-ships/savefile.json";
     bool gameEnder = false;
 
     while (!gameEnder) {
@@ -56,12 +57,12 @@ int main() {
 
                 case 'l':
                     std::cout << "Loading the game." << std::endl;
-                    game.loadGame("/home/nhitar/oop-ships/savefile.json");
+                    game.loadGame(file);
                     break;
 
                 case 's':
                     std::cout << "Saving the game." << std::endl;
-                    game.saveGame("/home/nhitar/oop-ships/savefile.json");
+                    game.saveGame(file);
                     break;
 
                 case 'q':
