@@ -26,6 +26,30 @@ void Painter::printAbilityName(std::string name) const {
     std::cout << name << std::endl;
 }
 
+void Painter::printShip(Ship ship) const {
+    std::cout << "length: " << ship.getLength()  << std::endl;
+    if (ship.isHorizontal()) {
+        std::cout << "orientation: horizontal" << std::endl;
+    } else {
+        std::cout << "orientation: vertical" << std::endl;
+    }
+    std::cout << "Segments health:" << std::endl;
+
+    for (int i = 0; i < ship.getLength(); i++) {
+        switch(ship.getSegment(i)->health) {
+            case SegmentHealth::Untouched:
+                std::cout << "Untouched" << std::endl;
+                break;
+            case SegmentHealth::Damaged:
+                std::cout << "Damaged" << std::endl;
+                break;
+            case SegmentHealth::Destroyed:
+                std::cout << "Destroyed" << std::endl;
+                break;
+        }    
+    }
+}
+
 void Painter::printCellValue(Field self, Coordinate coordinate) const {
     switch (self.getField()[coordinate.y*self.getRows() + coordinate.x].value) {
         case CellValue::ShipPart:

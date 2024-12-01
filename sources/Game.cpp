@@ -1,7 +1,6 @@
 #include "../include/Game.hpp"
 
 void Game::usePlayerAbility() {
-    Painter& painter = Painter::instance();
     int x, y;
     std::cout << "You have " << player.getAbilityManager().getAbilityCount() << " abilities available." << std::endl;
     std::cout << "Use random ability? 'y'" << std::endl;
@@ -29,7 +28,6 @@ void Game::usePlayerAbility() {
 }
 
 void Game::doPlayerAttack() {
-    Painter& painter = Painter::instance();
     int x, y;
     int successAttack = false;
     while (true) {
@@ -68,7 +66,6 @@ void Game::doPlayerAttack() {
 }
 
 void Game::doBotAttack() {
-    Painter& painter = Painter::instance();
     Coordinate coords = {-1, -1};
     try {
         coords = bot.getField().attackRandomly();
@@ -86,7 +83,6 @@ void Game::doBotAttack() {
 }
 
 void Game::playTurns() {
-    Painter& painter = Painter::instance();
     try {
         usePlayerAbility();
     }
@@ -142,8 +138,9 @@ void Game::resetGame() {
 }
 
 bool Game::isGameEnded() {
-    Painter& painter = Painter::instance();
-
+    if (!this->isPlayerWin && !this->isBotWin) {
+        return false;
+    }
     std::cout << "Do you want to continue playing? y/n" << std::endl;
     std::string line;
     std::cin >> line;
@@ -162,10 +159,16 @@ bool Game::isGameEnded() {
         this->isBotWin = false;
         painter.printFields(bot.getField(), player.getField());
     }
+    return false;
 }
 
 void Game::loadGame(const std::string& file) {
-    this->gameState.loadGame(file);
+    try {
+        this->gameState.loadGame(file);
+    } catch (nlohmann::json::exception& e) {
+        std::cerr << "Error parsing JSON: " << e.what() << std::endl;
+        exit(1);
+    }
 }
 
 void Game::saveGame(const std::string& file) {

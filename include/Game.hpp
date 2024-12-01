@@ -15,11 +15,12 @@ class Game {
         Player player;
         Bot bot;
         GameState gameState;
+        Painter painter;
         bool isPlayerWin;
         bool isBotWin;
     public:
-        Game(Player player, Bot bot, GameState gameState) 
-            : player(player), bot(bot), gameState(gameState), isPlayerWin(false), isBotWin(false) {}
+        Game(Player player, Bot bot, GameState gameState, Painter painter)
+            : player(player), bot(bot), gameState(gameState), painter(painter), isPlayerWin(false), isBotWin(false) {}
             
         void usePlayerAbility();
         void doPlayerAttack();

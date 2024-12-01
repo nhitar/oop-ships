@@ -1,7 +1,7 @@
 #include "../include/Game.hpp"
 
 int main() {
-    Painter& painter = Painter::instance();
+    Painter painter = Painter();
     painter.printLogo("/home/nhitar/oop-ships/logo.txt");
 
     Field enemyField = Field(10, 10);
@@ -19,7 +19,7 @@ int main() {
         painter.printException(e);
        return 0;
     }
-    
+
     ShipManager enemyShips = ShipManager(shipSizes.size(), shipSizes);
     ShipManager selfShips = ShipManager(shipSizes.size(), shipSizes);
     
@@ -39,8 +39,8 @@ int main() {
     AbilityManager abilityManager;
     Player player = Player(enemyShips, enemyField, abilityManager);
     Bot bot = Bot(selfShips, selfField);
-    GameState gameState = GameState(player, bot);
-    Game game = Game(player, bot, gameState);
+    GameState gameState = GameState(player, bot, painter);
+    Game game = Game(player, bot, gameState, painter);
     bool gameEnder = false;
 
     while (!gameEnder) {

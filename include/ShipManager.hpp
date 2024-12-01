@@ -20,6 +20,4 @@ class ShipManager {
         void setShipCount(int count);
 
         void addShip(int length);
-        
-        void printShips();
 };

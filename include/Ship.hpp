@@ -21,6 +21,4 @@ class Ship {
         bool isDestroyed() const;
         
         void setCoordinate(Coordinate coordinate);
-        
-        void printStatus();
 };

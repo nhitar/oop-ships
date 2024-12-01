@@ -25,11 +25,14 @@ Wrapper& operator>>(Wrapper& fileWrapper, GameState& state) {
     deseri.from_json(state.player.getAbilityManager(), "playerAbilityManager");
     deseri.from_json(state.bot.getShipManager(), "botShipManager");
     deseri.from_json(state.bot.getField(), "botField");
-
     return fileWrapper;
 }
 
 void GameState::saveGame(const std::string& file) {
+    std::ofstream ofs(file, std::ofstream::out | std::ofstream::trunc);
+    if (!ofs) {
+        std::cerr << "Error opening file: " << file << std::endl;
+    }
     Wrapper fileWrapper(file);
     fileWrapper << *this;
 

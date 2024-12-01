@@ -52,30 +52,3 @@ void Ship::setCoordinate(Coordinate coordinate) {
         ++i;
     }
 }
-
-void Ship::printStatus()  {
-    std::cout << "length: " << this->length  << std::endl;
-    switch(this->orientation) {
-        case Orientation::Horizontal:
-            std::cout << "orientation: horizontal" << std::endl;
-            break;
-        case Orientation::Vertical:
-            std::cout << "orientation: vertical" << std::endl;
-            break;
-    }
-    std::cout << "Segments health:" << std::endl;
-
-    for (int i = 0; i < this->length; i++) {
-        switch(getSegment(i)->health) {
-            case SegmentHealth::Untouched:
-                std::cout << "Untouched" << std::endl;
-                break;
-            case SegmentHealth::Damaged:
-                std::cout << "Damaged" << std::endl;
-                break;
-            case SegmentHealth::Destroyed:
-                std::cout << "Destroyed" << std::endl;
-                break;
-        }    
-    }
-}

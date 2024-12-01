@@ -32,9 +32,3 @@ void ShipManager::setShipCount(int count) {
 void ShipManager::addShip(int length) {
     this->ships.push_back(Ship(length));
 }
-
-void ShipManager::printShips() {
-    for (auto& ship : this->ships) {
-        ship.printStatus();
-    }
-}
