@@ -49,6 +49,7 @@ void Deserialization::from_json(AbilityManager& abilityManager, std::string key)
     const auto& jam = j.at(key);
     abilityManager = AbilityManager();
     abilityManager.popAbility();
+    
     for (const auto& jability : jam.at("abilities")) {
        if (jability == "Double Damage") {
            abilityManager.addAbility(new DoubleDamageAbilityCreator());

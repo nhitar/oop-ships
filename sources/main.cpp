@@ -41,42 +41,6 @@ int main() {
     Bot bot = Bot(selfShips, selfField);
     GameState gameState = GameState(player, bot);
     Game game = Game(player, bot, gameState, painter);
-    const std::string file = "/home/nhitar/oop-ships/savefile.json";
-    bool gameEnder = false;
-
-    while (!gameEnder) {
-        std::cout << "Push 'p' to play, 'l' to load game, 's' to save game 'q' to quit." << std::endl;
-        std::string line;
-        std::cin >> line;
-        if (line.size() == 1) {
-            switch (line[0]) {
-                case 'p':
-                    game.playTurns();
-                    gameEnder = game.isGameEnded();
-                    break;
-
-                case 'l':
-                    std::cout << "Loading the game." << std::endl;
-                    game.loadGame(file);
-                    break;
-
-                case 's':
-                    std::cout << "Saving the game." << std::endl;
-                    game.saveGame(file);
-                    break;
-
-                case 'q':
-                    std::cout << "Quitting the game." << std::endl;
-                    gameEnder = true;
-                    break;
-
-                default:
-                    std::cout << "Unknown command." << std::endl;
-                    break;
-            }
-            continue;
-        }
-        std::cout << "Invalid command." << std::endl;
-    }
+    game.startGame();
     return 0;
 }

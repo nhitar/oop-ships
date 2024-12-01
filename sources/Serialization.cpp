@@ -56,6 +56,8 @@ void  Serialization::to_json(AbilityManager& abilityManager, std::string key) {
             abilityManager.getCreator(i).getName()
         );
     }
-
+    if (abilityManager.getAbilityCount() == 0) {
+        jam["abilities"].push_back("");
+    }
     j[key] = jam;
 }

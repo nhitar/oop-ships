@@ -25,6 +25,7 @@ void Game::usePlayerAbility() {
             player.getAbilityManager().popAbility();
         }
     }
+    this->gameState.setIsAbilityUsed(true);
 }
 
 void Game::doPlayerAttack() {
@@ -71,6 +72,11 @@ void Game::doPlayerAttack() {
         std::cout << "Ability added." << std::endl;
         player.getAbilityManager().giveRandomAbility();
     }
+    if (player.getShipManager().getShipCount() == 0) {
+        std::cout << "You win!" << std::endl;
+        this->isPlayerWin = true;
+    }
+    this->gameState.setIsAbilityUsed(false);
     return;
 }
 
@@ -83,45 +89,80 @@ void Game::doBotAttack() {
         painter.printException(e);
         return;
     }
+    
     Ship* selfShip = bot.getShipManager().getShipByCoordinate(coords);
     if (selfShip != nullptr && selfShip->isDestroyed()) {
         bot.getField().revealCoordinatesAround(selfShip);
         bot.getShipManager().setShipCount(bot.getShipManager().getShipCount() - 1);
     }
-    return;
-}
 
-void Game::playTurns() {
-    try {
-        usePlayerAbility();
-    }
-    catch (NoAbilitiesAvailableException& e) {
-        painter.printException(e);
-        return;
-    }
-    catch (OutOfRangeException& e) {
-        painter.printException(e);
-        return;
-    }
-    painter.printFields(this->bot.getField(), this->player.getField());
-
-    doPlayerAttack();
-    if (player.getShipManager().getShipCount() == 0) {
-        std::cout << "You win!" << std::endl;
-        this->isPlayerWin = true;
-        return;
-    }
-
-    doBotAttack();
     if (bot.getShipManager().getShipCount() == 0) {
         std::cout << "You lose!" << std::endl;
         this->isBotWin = true;
-        return;
     }
-    // for (int i = 0; i < 10; i++)
-    //     this->painter.printShip(this->player.getShipManager().getShipByIndex(i));
+    return;
+}
 
-    painter.printFields(this->bot.getField(), this->player.getField());
+void Game::startGame() {
+    std::string answer;
+    const std::string file = "/home/nhitar/oop-ships/savefile.json";
+    while (!this->gameEnder) {
+        std::cout << "Push 'p' to play, 'l' to load game, 's' to save game 'q' to quit." << std::endl;
+        std::string line;
+        std::cin >> line;
+        if (line.size() == 1) {
+            switch (line[0]) {
+                case 'p':
+                    painter.printFields(bot.getField(), player.getField());
+                    if (!this->gameState.getIsAbilityUsed()) {
+                        try {
+                            usePlayerAbility();
+                        } catch (NoAbilitiesAvailableException& e) {
+                            painter.printException(e);
+                            break;
+                        }
+                        catch (OutOfRangeException& e) {
+                            painter.printException(e);
+                            break;
+                        }
+                        
+                        std::cout << "Do you want to quit/load/save the game? y/n" << std::endl;
+                        std::cin >> answer;
+                        if (answer == "y" || answer == "Y") { 
+                            break;
+                        }
+                    }
+                    painter.printFields(bot.getField(), player.getField());
+                    doPlayerAttack();
+                    doBotAttack();
+
+                    painter.printFields(bot.getField(), player.getField());
+                    this->isGameEnded();
+                    break;
+
+                case 'l':
+                    std::cout << "Loading the game." << std::endl;
+                    this->loadGame(file);
+                    break;
+
+                case 's':
+                    std::cout << "Saving the game." << std::endl;
+                    this->saveGame(file);
+                    break;
+
+                case 'q':
+                    std::cout << "Quitting the game." << std::endl;
+                    this->gameEnder = true;
+                    break;
+
+                default:
+                    std::cout << "Unknown command." << std::endl;
+                    break;
+            }
+            continue;
+        }
+        std::cout << "Invalid command." << std::endl;
+    }
 }
 
 void Game::resetBot() {
@@ -148,17 +189,19 @@ void Game::resetGame() {
     this->bot = Bot(newShips, newField);
 }
 
-bool Game::isGameEnded() {
+void Game::isGameEnded() {
     if (!this->isPlayerWin && !this->isBotWin) {
-        return false;
+        this->gameEnder = false;
+        return;
     }
+
     std::cout << "Do you want to continue playing? y/n" << std::endl;
     std::string line;
     std::cin >> line;
     if (line == "n" || line == "N") {
-        return true;
+        this->gameEnder = true;
+        return;
     }
-
 
     if (this->isPlayerWin) {
         resetBot();
@@ -170,7 +213,6 @@ bool Game::isGameEnded() {
         this->isBotWin = false;
         painter.printFields(bot.getField(), player.getField());
     }
-    return false;
 }
 
 void Game::loadGame(const std::string& file) {

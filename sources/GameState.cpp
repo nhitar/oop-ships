@@ -4,11 +4,13 @@ Wrapper& operator<<(Wrapper& fileWrapper, GameState& state) {
     nlohmann::json j;
     Serialization seri(j);
 
-    seri.to_json(state.player.getShipManager(), "playerShipManager");
-    seri.to_json(state.player.getField(), "playerField");
-    seri.to_json(state.player.getAbilityManager(), "playerAbilityManager");
-    seri.to_json(state.bot.getShipManager(), "botShipManager");
-    seri.to_json(state.bot.getField(), "botField");
+    seri.to_json(state.getPlayer().getShipManager(), "playerShipManager");
+    seri.to_json(state.getPlayer().getField(), "playerField");
+    seri.to_json(state.getPlayer().getAbilityManager(), "playerAbilityManager");
+    seri.to_json(state.getBot().getShipManager(), "botShipManager");
+    seri.to_json(state.getBot().getField(), "botField");
+    j["currentDamage"] = state.getPlayer().getCurrentDamage();
+    j["isAbilityUsed"] = state.getIsAbilityUsed();
 
     try {
         fileWrapper.write(j);
@@ -32,14 +34,16 @@ Wrapper& operator>>(Wrapper& fileWrapper, GameState& state) {
     }
 
     Deserialization deseri(j);
-    deseri.from_json(state.player.getShipManager(), "playerShipManager");
-    deseri.from_json(state.player.getField(), "playerField");
-    deseri.from_json(state.player.getAbilityManager(), "playerAbilityManager");
-    deseri.from_json(state.bot.getShipManager(), "botShipManager");
-    deseri.from_json(state.bot.getField(), "botField");
+    deseri.from_json(state.getPlayer().getShipManager(), "playerShipManager");
+    deseri.from_json(state.getPlayer().getField(), "playerField");
+    deseri.from_json(state.getPlayer().getAbilityManager(), "playerAbilityManager");
+    deseri.from_json(state.getBot().getShipManager(), "botShipManager");
+    deseri.from_json(state.getBot().getField(), "botField");
+    state.getPlayer().setCurrentDamage(j.at("currentDamage"));
+    state.setIsAbilityUsed(j.at("isAbilityUsed"));
 
-    state.placeShips(state.player.getShipManager(), state.player.getField());
-    state.placeShips(state.bot.getShipManager(), state.bot.getField());
+    state.placeShips(state.getPlayer().getShipManager(), state.getPlayer().getField());
+    state.placeShips(state.getBot().getShipManager(), state.getBot().getField());
 
     return fileWrapper;
 }
