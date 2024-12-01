@@ -56,15 +56,14 @@ void Game::doPlayerAttack() {
     }
     player.setCurrentDamage(1);
 
-    // Ship* enemyShip = player.getShipManager().getShipByCoordinate({x, y});
-    // if (enemyShip->getLength() != 0 && enemyShip->isDestroyed()) {
-    //     player.getField().revealCoordinatesAround(enemyShip);
-    //     player.getShipManager().setShipCount(player.getShipManager().getShipCount() - 1);
+    Ship* enemyShip = player.getShipManager().getShipByCoordinate({x, y});
+    if (enemyShip != nullptr && enemyShip->isDestroyed()) {
+        player.getField().revealCoordinatesAround(enemyShip);
+        player.getShipManager().setShipCount(player.getShipManager().getShipCount() - 1);
         
-    //     std::cout << "Ability added." << std::endl;
-    //     player.getAbilityManager().giveRandomAbility();
-
-    // }
+        std::cout << "Ability added." << std::endl;
+        player.getAbilityManager().giveRandomAbility();
+    }
     return;
 }
 
@@ -78,11 +77,11 @@ void Game::doBotAttack() {
         painter.printException(e);
         return;
     }
-    // Ship* selfShip = bot.getShipManager().getShipByCoordinate(coords);
-    // if (selfShip->getLength() != 0 && selfShip->isDestroyed()) {
-    //     bot.getField().revealCoordinatesAround(selfShip);
-    //     bot.getShipManager().setShipCount(bot.getShipManager().getShipCount() - 1);
-    // }
+    Ship* selfShip = bot.getShipManager().getShipByCoordinate(coords);
+    if (selfShip != nullptr && selfShip->isDestroyed()) {
+        bot.getField().revealCoordinatesAround(selfShip);
+        bot.getShipManager().setShipCount(bot.getShipManager().getShipCount() - 1);
+    }
     return;
 }
 
@@ -142,8 +141,17 @@ void Game::resetGame() {
     this->bot = Bot(newShips, newField);
 }
 
-void Game::isGameEnded() {
+bool Game::isGameEnded() {
     Painter& painter = Painter::instance();
+
+    std::cout << "Do you want to continue playing? y/n" << std::endl;
+    std::string line;
+    std::cin >> line;
+    if (line == "n" || line == "N") {
+        return true;
+    }
+
+
     if (this->isPlayerWin) {
         resetBot();
         this->isPlayerWin = false;
@@ -151,6 +159,7 @@ void Game::isGameEnded() {
     }
     if (this->isBotWin) {
         resetGame(); 
+        this->isBotWin = false;
         painter.printFields(bot.getField(), player.getField());
     }
 }

@@ -14,6 +14,7 @@ class ShipManager {
         ShipManager(int shipCount, std::vector<int> shipSizes);
 
         Ship& getShipByIndex(int index);
+        Ship* getShipByCoordinate(Coordinate coordinate);
         
         int getShipCount() const;
         void setShipCount(int count);

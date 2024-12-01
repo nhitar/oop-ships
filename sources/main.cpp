@@ -7,6 +7,7 @@ int main() {
     Field enemyField = Field(10, 10);
     Field selfField = Field(enemyField);
     std::vector<int> shipSizes = {4, 3, 3, 2, 2, 2, 1, 1, 1, 1};
+
     try {
         for (auto& size : shipSizes) {
             if (size < 1 || size > 4) {
@@ -18,6 +19,7 @@ int main() {
         painter.printException(e);
        return 0;
     }
+    
     ShipManager enemyShips = ShipManager(shipSizes.size(), shipSizes);
     ShipManager selfShips = ShipManager(shipSizes.size(), shipSizes);
     
@@ -31,16 +33,17 @@ int main() {
         painter.printException(e);
         return 0;
     }
+
     selfField.revealCells();
-    enemyField.revealCells(); // remove
     painter.printFields(selfField, enemyField);
     AbilityManager abilityManager;
     Player player = Player(enemyShips, enemyField, abilityManager);
     Bot bot = Bot(selfShips, selfField);
     GameState gameState = GameState(player, bot);
     Game game = Game(player, bot, gameState);
+    bool gameEnder = false;
 
-    while (true) {
+    while (!gameEnder) {
         std::cout << "Push 'p' to play, 'l' to load game, 's' to save game 'q' to quit." << std::endl;
         std::string line;
         std::cin >> line;
@@ -48,7 +51,7 @@ int main() {
             switch (line[0]) {
                 case 'p':
                     game.playTurns();
-                    game.isGameEnded();
+                    gameEnder = game.isGameEnded();
                     break;
 
                 case 'l':
@@ -63,7 +66,8 @@ int main() {
 
                 case 'q':
                     std::cout << "Quitting the game." << std::endl;
-                    return 0;
+                    gameEnder = true;
+                    break;
 
                 default:
                     std::cout << "Unknown command." << std::endl;
@@ -73,6 +77,5 @@ int main() {
         }
         std::cout << "Invalid command." << std::endl;
     }
-
     return 0;
 }

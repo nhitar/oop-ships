@@ -28,7 +28,7 @@ class Game {
         void playTurns();
         void resetBot();
         void resetGame();
-        void isGameEnded();
+        bool isGameEnded();
 
         void loadGame(const std::string& file);
         void saveGame(const std::string& file);
