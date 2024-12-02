@@ -15,7 +15,6 @@ class GameState {
         Bot& bot;
         bool isAbilityUsed;
         int currentDamage;
-        
     public:
         GameState(Player& player, Bot& bot) : player(player), bot(bot), isAbilityUsed(false), currentDamage(1) {};
         

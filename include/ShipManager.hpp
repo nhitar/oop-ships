@@ -9,6 +9,7 @@ class ShipManager {
     private:
         std::vector<Ship> ships;
         int shipCount;
+        int shipsAlive;
     public:
         ShipManager() : ships({}) {};
         ShipManager(int shipCount, std::vector<int> shipSizes);
@@ -17,7 +18,9 @@ class ShipManager {
         Ship* getShipByCoordinate(Coordinate coordinate);
         
         int getShipCount() const;
-        void setShipCount(int count);
+
+        int getShipsAlive()const;
+        void setShipsAlive(int count);
 
         void addShip(int length);
 };

@@ -20,6 +20,7 @@ void Deserialization::from_json(ShipManager& shipManager, std::string key) {
         }
 
         for (int j = 0; j < shipSizes[i]; j++) {
+            
             Segment* segment = ship.getSegment(j);
 
             segment->health = jsm.at(key).at("segments").at(j).at("health");
@@ -27,6 +28,15 @@ void Deserialization::from_json(ShipManager& shipManager, std::string key) {
             segment->coordinate.y = jsm.at(key).at("segments").at(j).at("y");
         }
     }
+
+    int shipsAlive = shipSizes.size();
+    for (size_t i = 0; i < shipSizes.size(); i++) {
+        Ship& ship = shipManager.getShipByIndex(i);
+        if (ship.isDestroyed()) {
+            shipsAlive--;
+        }
+    }
+    shipManager.setShipsAlive(shipsAlive);
 }
 
 void Deserialization::from_json(Field& field, std::string key) {

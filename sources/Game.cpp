@@ -67,12 +67,12 @@ void Game::doPlayerAttack() {
     Ship* enemyShip = player.getShipManager().getShipByCoordinate({x, y});
     if (enemyShip != nullptr && enemyShip->isDestroyed()) {
         player.getField().revealCoordinatesAround(enemyShip);
-        player.getShipManager().setShipCount(player.getShipManager().getShipCount() - 1);
+        player.getShipManager().setShipsAlive(player.getShipManager().getShipsAlive() - 1);
         
         std::cout << "Ability added." << std::endl;
         player.getAbilityManager().giveRandomAbility();
     }
-    if (player.getShipManager().getShipCount() == 0) {
+    if (player.getShipManager().getShipsAlive() == 0) {
         std::cout << "You win!" << std::endl;
         this->isPlayerWin = true;
     }
@@ -93,10 +93,10 @@ void Game::doBotAttack() {
     Ship* selfShip = bot.getShipManager().getShipByCoordinate(coords);
     if (selfShip != nullptr && selfShip->isDestroyed()) {
         bot.getField().revealCoordinatesAround(selfShip);
-        bot.getShipManager().setShipCount(bot.getShipManager().getShipCount() - 1);
+        bot.getShipManager().setShipsAlive(bot.getShipManager().getShipsAlive() - 1);
     }
 
-    if (bot.getShipManager().getShipCount() == 0) {
+    if (bot.getShipManager().getShipsAlive() == 0) {
         std::cout << "You lose!" << std::endl;
         this->isBotWin = true;
     }
@@ -107,7 +107,7 @@ void Game::startGame() {
     std::string answer;
     const std::string file = "/home/nhitar/oop-ships/savefile.json";
     while (!this->gameEnder) {
-        std::cout << "Push 'p' to play, 'l' to load game, 's' to save game 'q' to quit." << std::endl;
+        std::cout << "Push 'p' to play, 'l' to load game, 's' to save game, 'q' to quit." << std::endl;
         std::string line;
         std::cin >> line;
         if (line.size() == 1) {
@@ -136,6 +136,9 @@ void Game::startGame() {
                     doPlayerAttack();
                     doBotAttack();
 
+                    for (int i = 0; i < 10; i++) 
+                        painter.printShip(player.getShipManager().getShipByIndex(i));
+
                     painter.printFields(bot.getField(), player.getField());
                     this->isGameEnded();
                     break;
@@ -143,6 +146,7 @@ void Game::startGame() {
                 case 'l':
                     std::cout << "Loading the game." << std::endl;
                     this->loadGame(file);
+                    painter.printFields(bot.getField(), player.getField());
                     break;
 
                 case 's':

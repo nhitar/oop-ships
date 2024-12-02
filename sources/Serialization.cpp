@@ -39,8 +39,8 @@ void Serialization::to_json(Field& field, std::string key) {
             jf[key] = {
                 {"x", temp[y*field.getRows() + x].coordinate.x},
                 {"y", temp[y*field.getRows() + x].coordinate.y},
-                {"state", temp[y*field.getRows() + x].state}, // уточнить значения
-                {"value", temp[y*field.getRows() + x].value} // уточнить значения
+                {"state", temp[y*field.getRows() + x].state},
+                {"value", temp[y*field.getRows() + x].value}
             };
         }
     }

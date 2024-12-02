@@ -1,6 +1,6 @@
 #include "../include/ShipManager.hpp"
 
-ShipManager::ShipManager(int shipCount, std::vector<int> shipSizes) : shipCount(shipCount) {
+ShipManager::ShipManager(int shipCount, std::vector<int> shipSizes) : shipCount(shipCount), shipsAlive(shipCount) {
     for (auto length : shipSizes) {
         this->ships.push_back(Ship(length));
     }
@@ -25,8 +25,12 @@ int ShipManager::getShipCount() const {
     return this->shipCount;
 }
 
-void ShipManager::setShipCount(int count) {
-    this->shipCount = count;
+int ShipManager::getShipsAlive()const {
+    return this->shipsAlive;
+}
+
+void ShipManager::setShipsAlive(int count) {
+    this->shipsAlive = count;
 }
 
 void ShipManager::addShip(int length) {
