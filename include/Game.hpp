@@ -10,6 +10,7 @@
 #include "AbilityManager.hpp"
 #include "Exceptions/InvalidShipSizeException.hpp"
 #include "Exceptions/InvalidCoordinateException.hpp"
+#include "Exceptions/HashMismatchException.hpp"
 
 class Game {
     private:
@@ -35,5 +36,4 @@ class Game {
 
         void loadGame(const std::string& file);
         void saveGame(const std::string& file);
-
 };

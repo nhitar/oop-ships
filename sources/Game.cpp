@@ -136,8 +136,9 @@ void Game::startGame() {
                     doPlayerAttack();
                     doBotAttack();
 
-                    for (int i = 0; i < 10; i++) 
-                        painter.printShip(player.getShipManager().getShipByIndex(i));
+                    // для отладки
+                    // for (int i = 0; i < 10; i++) 
+                    //     painter.printShip(player.getShipManager().getShipByIndex(i));
 
                     painter.printFields(bot.getField(), player.getField());
                     this->isGameEnded();
@@ -224,7 +225,10 @@ void Game::loadGame(const std::string& file) {
         this->gameState.loadGame(file);
     } catch (nlohmann::json::exception& e) {
         std::cerr << "Error parsing JSON: " << e.what() << std::endl;
-       return;
+        return;
+    } catch (HashMismatchException& e) {
+        painter.printException(e);
+        return;
     }
 }
 

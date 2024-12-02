@@ -1,16 +1,31 @@
 #include "../include/GameState.hpp"
 
+std::string GameState::getHash(const std::string& data) {
+    std::hash<std::string> hash_fn;
+    size_t hash = hash_fn(data);
+
+    std::stringstream ss;
+    ss << std::hex << hash;
+    return ss.str();
+}
+
 Wrapper& operator<<(Wrapper& fileWrapper, GameState& state) {
     nlohmann::json j;
-    Serialization seri(j);
-
+    nlohmann::json data;
+    Serialization seri(data);
+    
     seri.to_json(state.getPlayer().getShipManager(), "playerShipManager");
     seri.to_json(state.getPlayer().getField(), "playerField");
     seri.to_json(state.getPlayer().getAbilityManager(), "playerAbilityManager");
     seri.to_json(state.getBot().getShipManager(), "botShipManager");
     seri.to_json(state.getBot().getField(), "botField");
-    j["currentDamage"] = state.getCurrentDamage();
-    j["isAbilityUsed"] = state.getIsAbilityUsed();
+    data["currentDamage"] = state.getCurrentDamage();
+    data["isAbilityUsed"] = state.getIsAbilityUsed();
+    
+    std::string jsonString = data.dump();
+
+    j["data"] = data;
+    j["hashValue"] = state.getHash(jsonString);
 
     try {
         fileWrapper.write(j);
@@ -33,7 +48,17 @@ Wrapper& operator>>(Wrapper& fileWrapper, GameState& state) {
         return fileWrapper;
     }
 
-    Deserialization deseri(j);
+
+    nlohmann::json data = j.at("data");
+    std::string savedHashValue = j.at("hashValue");
+
+    std::string jsonString = data.dump();
+
+    if (savedHashValue != state.getHash(jsonString)) {
+        throw HashMismatchException();
+    }
+
+    Deserialization deseri(data);
     ShipManager shipManager;
     Field field;
     AbilityManager abilityManager;
@@ -48,8 +73,8 @@ Wrapper& operator>>(Wrapper& fileWrapper, GameState& state) {
     deseri.from_json(enemyShipManager, "botShipManager");
     deseri.from_json(enemyField, "botField");
 
-    state.setCurrentDamage(j.at("currentDamage"));
-    state.setIsAbilityUsed(j.at("isAbilityUsed"));
+    state.setCurrentDamage(data.at("currentDamage"));
+    state.setIsAbilityUsed(data.at("isAbilityUsed"));
 
     state.getPlayer().getShipManager() = shipManager;
     state.getPlayer().getField() = field;

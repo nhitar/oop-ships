@@ -6,6 +6,7 @@
 #include "Player.hpp"
 #include "Wrapper.hpp"
 #include "Exceptions/UnableToOpenFileException.hpp"
+#include "Exceptions/HashMismatchException.hpp"
 
 #include <fstream>
 
@@ -18,6 +19,7 @@ class GameState {
     public:
         GameState(Player& player, Bot& bot) : player(player), bot(bot), isAbilityUsed(false), currentDamage(1) {};
         
+        std::string getHash(const std::string& data);
         void placeShips(ShipManager& shipManager, Field& field);
         
         void loadGame(const std::string& file);
