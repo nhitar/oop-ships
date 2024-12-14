@@ -22,8 +22,8 @@ class GameState {
         std::string getHash(const std::string& data);
         void placeShips(ShipManager& shipManager, Field& field);
         
-        void loadGame(const std::string& file);
-        void saveGame(const std::string& file);
+        void loadGame();
+        void saveGame();
 
         Player& getPlayer() { return this->player; };
         Bot& getBot() { return this->bot; };

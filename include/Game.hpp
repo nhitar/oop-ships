@@ -29,11 +29,11 @@ class Game {
         void doPlayerAttack();
         void doBotAttack();
 
-        void startGame();
+        // void startGame();
         void resetBot();
         void resetGame();
         void isGameEnded();
 
-        void loadGame(const std::string& file);
-        void saveGame(const std::string& file);
+        void loadGame();
+        void saveGame(  );
 };

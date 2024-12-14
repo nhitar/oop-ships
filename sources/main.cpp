@@ -1,4 +1,6 @@
 #include "../include/Game.hpp"
+#include "../include/GameController.hpp"
+#include "../include/InputHandler.hpp"
 
 int main() {
     Painter painter = Painter();
@@ -42,6 +44,9 @@ int main() {
     Bot bot = Bot(selfShips, selfField);
     GameState gameState = GameState(player, bot);
     Game game = Game(player, bot, gameState, painter);
-    game.startGame();
+
+    InputHandler inputHandler = InputHandler();
+    GameController<InputHandler, Painter> gameController = GameController<InputHandler, Painter>(game, gameState, inputHandler, painter);
+    gameController.run();
     return 0;
 }

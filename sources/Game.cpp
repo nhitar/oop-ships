@@ -103,73 +103,6 @@ void Game::doBotAttack() {
     return;
 }
 
-void Game::startGame() {
-    std::string answer;
-    const std::string file = "/home/nhitar/oop-ships/savefile.json";
-    while (!this->gameEnder) {
-        std::cout << "Push 'p' to play, 'l' to load game, 's' to save game, 'q' to quit." << std::endl;
-        std::string line;
-        std::cin >> line;
-        if (line.size() == 1) {
-            switch (line[0]) {
-                case 'p':
-                    painter.printFields(bot.getField(), player.getField());
-                    if (!this->gameState.getIsAbilityUsed()) {
-                        try {
-                            usePlayerAbility();
-                        } catch (NoAbilitiesAvailableException& e) {
-                            painter.printException(e);
-                            break;
-                        }
-                        catch (OutOfRangeException& e) {
-                            painter.printException(e);
-                            break;
-                        }
-                        
-                        std::cout << "Do you want to quit/load/save the game? y/n" << std::endl;
-                        std::cin >> answer;
-                        if (answer == "y" || answer == "Y") { 
-                            break;
-                        }
-                    }
-                    painter.printFields(bot.getField(), player.getField());
-                    doPlayerAttack();
-                    doBotAttack();
-
-                    // для отладки
-                    // for (int i = 0; i < 10; i++) 
-                    //     painter.printShip(player.getShipManager().getShipByIndex(i));
-
-                    painter.printFields(bot.getField(), player.getField());
-                    this->isGameEnded();
-                    break;
-
-                case 'l':
-                    std::cout << "Loading the game." << std::endl;
-                    this->loadGame(file);
-                    painter.printFields(bot.getField(), player.getField());
-                    break;
-
-                case 's':
-                    std::cout << "Saving the game." << std::endl;
-                    this->saveGame(file);
-                    break;
-
-                case 'q':
-                    std::cout << "Quitting the game." << std::endl;
-                    this->gameEnder = true;
-                    break;
-
-                default:
-                    std::cout << "Unknown command." << std::endl;
-                    break;
-            }
-            continue;
-        }
-        std::cout << "Invalid command." << std::endl;
-    }
-}
-
 void Game::resetBot() {
     std::vector<int> shipSizes = {4, 3, 3, 2, 2, 2, 1, 1, 1, 1};
     
@@ -220,11 +153,11 @@ void Game::isGameEnded() {
     }
 }
 
-void Game::loadGame(const std::string& file) {
+void Game::loadGame() {
     try {
-        this->gameState.loadGame(file);
+        this->gameState.loadGame();
     } catch (nlohmann::json::exception& e) {
-        std::cerr << "Error parsing JSON: " << e.what() << std::endl;
+        std::cerr << "\033[1;31m" << "Error parsing JSON: " << e.what() << "\033[0m" << std::endl;
         return;
     } catch (HashMismatchException& e) {
         painter.printException(e);
@@ -232,6 +165,6 @@ void Game::loadGame(const std::string& file) {
     }
 }
 
-void Game::saveGame(const std::string& file) {
-    this->gameState.saveGame(file);
+void Game::saveGame() {
+    this->gameState.saveGame();
 }   

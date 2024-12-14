@@ -69,7 +69,6 @@ Wrapper& operator>>(Wrapper& fileWrapper, GameState& state) {
     deseri.from_json(shipManager, "playerShipManager");
     deseri.from_json(field, "playerField");
     deseri.from_json(abilityManager, "playerAbilityManager");
-
     deseri.from_json(enemyShipManager, "botShipManager");
     deseri.from_json(enemyField, "botField");
 
@@ -79,7 +78,6 @@ Wrapper& operator>>(Wrapper& fileWrapper, GameState& state) {
     state.getPlayer().getShipManager() = shipManager;
     state.getPlayer().getField() = field;
     state.getPlayer().getAbilityManager() = abilityManager;
-
     state.getBot().getShipManager() = enemyShipManager;
     state.getBot().getField() = enemyField;
 
@@ -99,14 +97,14 @@ void GameState::placeShips(ShipManager& shipManager, Field& field) {
     }
 }
 
-void GameState::loadGame(const std::string& file) {
-    Wrapper fileWrapper(file);
+void GameState::loadGame() {
+    Wrapper fileWrapper("/home/nhitar/oop-ships/savefile.json");
     fileWrapper >> *this;
 }
 
-void GameState::saveGame(const std::string& file) {
-    std::ofstream ofs(file, std::ofstream::out | std::ofstream::trunc);
-    Wrapper fileWrapper(file);
+void GameState::saveGame() {
+    std::ofstream ofs("/home/nhitar/oop-ships/savefile.json", std::ofstream::out | std::ofstream::trunc);
+    Wrapper fileWrapper("/home/nhitar/oop-ships/savefile.json");
     fileWrapper << *this;
 
 }
