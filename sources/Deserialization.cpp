@@ -75,10 +75,31 @@ void Deserialization::from_json(AbilityManager& abilityManager, std::string key)
 
 void Deserialization::from_json(std::map<char, Command>& newCommands) {
     const auto& jc = j.at("commands");
+    std::vector<int> values;
 
     for (const auto& pair : jc.items()) {
         std::string key = pair.key();
+        if (key.size() != 1) {
+            throw std::invalid_argument("Invalid key.");
+        }
+
         int value = pair.value();
+        if (value < 0 || value > 5) {
+            throw std::invalid_argument("Incorrect number of commands.");
+        }
+        values.push_back(value);
         newCommands[key[0]] = static_cast<Command>(value);
+    }
+
+    for (size_t i = 0; i < values.size(); i++) {
+        for (size_t j = i + 1; j < values.size(); j++) {
+            if (values[i] == values[j]) {
+                throw std::invalid_argument("Duplicates in command.");
+            }
+        }
+    }
+
+    if (newCommands.size() != 6) {
+        throw std::invalid_argument("Incorrect number of commands.");
     }
 }
