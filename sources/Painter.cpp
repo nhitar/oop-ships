@@ -26,6 +26,12 @@ void Painter::printAbilityName(std::string name) const {
     std::cout << name << std::endl;
 }
 
+void Painter::printAbilityNames(AbilityManager abilityManager) const {
+    for (int i = 0; i < abilityManager.getAbilityCount(); i++) {
+        std::cout << abilityManager.getCreator(i).getName() << std::endl;
+    }
+}
+
 void Painter::printShip(Ship ship) const {
     std::cout << "length: " << ship.getLength()  << std::endl;
     if (ship.isHorizontal()) {
@@ -176,4 +182,12 @@ void Painter::printFields(Field self, Field other) const {
         std::cout << "\033[30m" << "x" << std::endl;
     }
     std::cout << "\033[0m" << std::endl;
+}
+
+void Painter::printInfo() const {
+    std::cout << "Push i to print info, a to attack, b to use ability, l to load, s to save, q to quit." << std::endl;
+}
+
+void Painter::printCoordinateNeeded() const {
+    std::cout << "Input coordinate." << std::endl;
 }

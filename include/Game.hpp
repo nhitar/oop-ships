@@ -36,4 +36,6 @@ class Game {
 
         void loadGame();
         void saveGame();
+
+        GameState& getGameState() { return gameState; };
 };

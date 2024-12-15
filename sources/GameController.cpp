@@ -6,39 +6,40 @@ void GameController<Input, Output>::run() {
     while (command != Command::quit) {
         switch (command) {
             case Command::info:
-                std::cout << "Push i to print info, a to attack, b to use ability, l to load, s to save, q to quit." << std::endl;
+                output.printInfo();
                 break;
 
             case Command::attack:
-                outputHandler.printFields(gameState.getBot().getField(), gameState.getPlayer().getField());
+                output.printFields(game.getGameState().getBot().getField(), game.getGameState().getPlayer().getField());
                 game.doPlayerAttack();
                 game.doBotAttack();
-                outputHandler.printFields(gameState.getBot().getField(), gameState.getPlayer().getField());
                 break;
 
             case Command::ability:
-                outputHandler.printFields(gameState.getBot().getField(), gameState.getPlayer().getField());
+                if (game.getGameState().getPlayer().getAbilityManager().getCreator(0).isUsingCoordinate()) {
+                    output.printAbilityName(game.getGameState().getPlayer().getAbilityManager().getCreator(0).getName());
+                    output.printCoordinateNeeded();
+                    game.getGameState().setCoordinate(input.processCoordinateInput());
+                }
+                
                 try {
                     game.usePlayerAbility();
                 } catch (NoAbilitiesAvailableException& e) {
-                    outputHandler.printException(e);
+                    output.printException(e);
                     break;
                 } catch (OutOfRangeException& e) {
-                    outputHandler.printException(e);
+                    output.printException(e);
                     break;
                 }
-
-                outputHandler.printFields(gameState.getBot().getField(), gameState.getPlayer().getField());
-                std::cout << "Player attacking." << std::endl;
+                std::cout << "Attack" << std::endl;
                 game.doPlayerAttack();
                 game.doBotAttack();
-                outputHandler.printFields(gameState.getBot().getField(), gameState.getPlayer().getField());
                 break;
 
             case Command::load:
                 std::cout << "Loading the game." << std::endl;
                 game.loadGame();
-                outputHandler.printFields(gameState.getBot().getField(), gameState.getPlayer().getField());
+                //output.printFields(gameState.getBot().getField(), gameState.getPlayer().getField());
                 break;
 
             case Command::save:
@@ -50,8 +51,10 @@ void GameController<Input, Output>::run() {
                 std::cout << "Unknown command." << std::endl;
                 break;
         }
-        std::cout<< "Give command." << std::endl;
-        command = inputHandler.processCommandInput();
+        if (command != Command::info) {
+            output.printInfo();
+        }
+        command = input.processCommandInput();
     }
 }
 

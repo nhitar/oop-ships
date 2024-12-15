@@ -54,10 +54,10 @@ int main() {
         painter.printException(e);
     }
 
-    OutputObserver<Painter>* outputObserver = new OutputObserver<Painter>(painter);
+    OutputObserver<Painter>* outputObserver = new OutputObserver<Painter>(painter, gameState);
     game.addObserver(outputObserver);
 
-    GameController<InputHandler, Painter> gameController = GameController<InputHandler, Painter>(game, gameState, inputHandler, painter);
+    GameController<InputHandler, Painter> gameController = GameController<InputHandler, Painter>(game, inputHandler, painter);
     gameController.run();
     return 0;
 }

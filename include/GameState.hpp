@@ -5,6 +5,7 @@
 #include "Painter.hpp"
 #include "Player.hpp"
 #include "Wrapper.hpp"
+#include "Structs.hpp"
 #include "Exceptions/UnableToOpenFileException.hpp"
 #include "Exceptions/HashMismatchException.hpp"
 
@@ -16,6 +17,7 @@ class GameState {
         Bot& bot;
         bool isAbilityUsed;
         int currentDamage;
+        Coordinate coordinate;
     public:
         GameState(Player& player, Bot& bot) : player(player), bot(bot), isAbilityUsed(false), currentDamage(1) {};
         
@@ -33,4 +35,7 @@ class GameState {
         
         int& getCurrentDamage() { return this->currentDamage; };
         void setCurrentDamage(int damage) { this->currentDamage = damage; };
+
+        Coordinate& getCoordinate() { return this->coordinate; };
+        void setCoordinate(Coordinate coordinate) { this->coordinate = coordinate; };
 };

@@ -7,11 +7,10 @@ template <class Input, class Output>
 class GameController {
     private:
         Game& game;
-        GameState& gameState;
-        Input& inputHandler;
-        Output& outputHandler;
+        Input& input;
+        Output& output;
     public:
-        GameController(Game& game, GameState& gameState, Input& inputHandler, Output& outputHandler) 
-            : game(game), gameState(gameState), inputHandler(inputHandler), outputHandler(outputHandler) {};
+        GameController(Game& game, Input& input, Output& output) 
+            : game(game), input(input), output(output) {};
         void run();
 };

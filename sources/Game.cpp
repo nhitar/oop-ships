@@ -1,29 +1,22 @@
 #include "../include/Game.hpp"
 
 void Game::usePlayerAbility() {
-    int x, y;
-    std::cout << "You have " << player.getAbilityManager().getAbilityCount() << " abilities available." << std::endl;
-    std::cout << "Use random ability? 'y'" << std::endl;
-    std::string result;
-    std::cin >> result;
 
-    if (result == "y" || result == "Y") {
-        Coordinate coordinate = {-1, -1};
-        AbilityParameters ap(player.getField(), player.getShipManager(), coordinate, gameState.getCurrentDamage());
-        player.getAbilityManager().checkIfEmpty();
-        painter.printAbilityName(player.getAbilityManager().getCreator(0).getName());
+    for (const auto& observer : this->observers) {
+        observer->abilityUsed();
+    }
 
-        try {
-            if (player.getAbilityManager().getCreator(0).isUsingCoordinate()) {
-                std::cout << "Give coordinates for ability." << std::endl;
-                std::cin >> x >> y;
-                ap.coordinate = {x, y};
-            }
-            player.getAbilityManager().useAbility(ap);
+    Coordinate coordinate = {-1, -1};
+    AbilityParameters ap(player.getField(), player.getShipManager(), coordinate, gameState.getCurrentDamage());
+    player.getAbilityManager().checkIfEmpty();
+    try {
+        if (player.getAbilityManager().getCreator(0).isUsingCoordinate()) {
+            ap.coordinate = gameState.getCoordinate();
         }
-        catch (RevealedCellAttackException& e) {
-            player.getAbilityManager().popAbility();
-        }
+        player.getAbilityManager().useAbility(ap);
+    }
+    catch (RevealedCellAttackException& e) {
+        player.getAbilityManager().popAbility();
     }
     this->gameState.setIsAbilityUsed(true);
 }
@@ -73,12 +66,7 @@ void Game::doPlayerAttack() {
         player.getAbilityManager().giveRandomAbility();
     }
 
-    for (const auto& observer : this->observers) {
-        observer->turnEnded();
-    }
-
     if (player.getShipManager().getShipsAlive() == 0) {
-        std::cout << "You win!" << std::endl;
         for (const auto& observer : this->observers) {
             observer->playerWin();
         }
@@ -104,8 +92,11 @@ void Game::doBotAttack() {
         bot.getShipManager().setShipsAlive(bot.getShipManager().getShipsAlive() - 1);
     }
 
+    for (const auto& observer : this->observers) {
+        observer->turnEnded();
+    }
+
     if (bot.getShipManager().getShipsAlive() == 0) {
-        std::cout << "You lose!" << std::endl;
         for (const auto& observer : this->observers) {
             observer->botWin();
         }
