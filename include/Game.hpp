@@ -8,6 +8,7 @@
 #include "GameState.hpp"
 #include "Abilities.hpp"
 #include "AbilityManager.hpp"
+#include "Observer.hpp"
 #include "Exceptions/InvalidShipSizeException.hpp"
 #include "Exceptions/InvalidCoordinateException.hpp"
 #include "Exceptions/HashMismatchException.hpp"
@@ -18,12 +19,10 @@ class Game {
         Bot bot;
         GameState gameState;
         Painter painter;
-        bool isPlayerWin;
-        bool isBotWin;
-        bool gameEnder;
+        std::vector<Observer*> observers;
     public:
         Game(Player player, Bot bot, GameState gameState, Painter painter)
-            : player(player), bot(bot), gameState(gameState), painter(painter), isPlayerWin(false), isBotWin(false), gameEnder(false) {}
+            : player(player), bot(bot), gameState(gameState), painter(painter) {}
             
         void usePlayerAbility();
         void doPlayerAttack();
@@ -32,8 +31,9 @@ class Game {
         // void startGame();
         void resetBot();
         void resetGame();
-        void isGameEnded();
+
+        void addObserver(Observer* observer);
 
         void loadGame();
-        void saveGame(  );
+        void saveGame();
 };

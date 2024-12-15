@@ -3,8 +3,10 @@
 #include "ShipManager.hpp"
 #include "Field.hpp"
 #include "AbilityManager.hpp"
+#include "Command.hpp"
 
 #include <string.h>
+#include <map>
 #include <nlohmann/json.hpp>
 
 class Deserialization {
@@ -16,4 +18,5 @@ class Deserialization {
         void from_json(ShipManager& shipManager, std::string key);
         void from_json(Field& field, std::string key);
         void from_json(AbilityManager& abilityManager, std::string key);
+        void from_json(std::map<char, Command>& newCommands);
 };

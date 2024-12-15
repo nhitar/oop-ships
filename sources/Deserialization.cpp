@@ -72,3 +72,13 @@ void Deserialization::from_json(AbilityManager& abilityManager, std::string key)
        }
     }
 }
+
+void Deserialization::from_json(std::map<char, Command>& newCommands) {
+    const auto& jc = j.at("commands");
+
+    for (const auto& pair : jc.items()) {
+        std::string key = pair.key();
+        int value = pair.value();
+        newCommands[key[0]] = static_cast<Command>(value);
+    }
+}

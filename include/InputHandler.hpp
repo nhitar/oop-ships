@@ -1,22 +1,15 @@
 #pragma once
 
 #include "Game.hpp"
+#include "Command.hpp"
 #include <map>
-
-enum class Command {
-    info = 0,
-    attack = 1,
-    ability = 2,
-    load = 3,
-    save = 4,
-    quit = 5
-};
 
 class InputHandler {
     private:
         std::map <char, Command> commands;
     public:
         InputHandler();
+        void setCommands(std::map <char, Command> newCommands);
         Command processCommandInput();
         Coordinate processCoordinateInput();
 };

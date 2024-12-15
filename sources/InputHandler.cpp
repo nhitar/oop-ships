@@ -3,14 +3,18 @@
 
 InputHandler::InputHandler() {
     this->commands = {
-        {'0', Command::info},
-        {'1', Command::attack},
-        {'2', Command::ability},
-        {'3', Command::load},
-        {'4', Command::save},
-        {'5', Command::quit}
+        {'i', Command::info},
+        {'a', Command::attack},
+        {'b', Command::ability},
+        {'l', Command::load},
+        {'s', Command::save},
+        {'q', Command::quit}
     };
 }
+
+void InputHandler::setCommands(std::map <char, Command> newCommands) {
+    this->commands = newCommands;
+} 
 
 Command InputHandler::processCommandInput() {
     std::string line;

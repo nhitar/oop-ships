@@ -6,7 +6,7 @@ void GameController<Input, Output>::run() {
     while (command != Command::quit) {
         switch (command) {
             case Command::info:
-                std::cout << "Push 0 to print info, 1 to attack, 2 to use ability, 3 to load, 4 to save, 5 to quit." << std::endl;
+                std::cout << "Push i to print info, a to attack, b to use ability, l to load, s to save, q to quit." << std::endl;
                 break;
 
             case Command::attack:

@@ -72,9 +72,17 @@ void Game::doPlayerAttack() {
         std::cout << "Ability added." << std::endl;
         player.getAbilityManager().giveRandomAbility();
     }
+
+    for (const auto& observer : this->observers) {
+        observer->turnEnded();
+    }
+
     if (player.getShipManager().getShipsAlive() == 0) {
         std::cout << "You win!" << std::endl;
-        this->isPlayerWin = true;
+        for (const auto& observer : this->observers) {
+            observer->playerWin();
+        }
+        this->resetBot();
     }
     this->gameState.setIsAbilityUsed(false);
     return;
@@ -98,7 +106,10 @@ void Game::doBotAttack() {
 
     if (bot.getShipManager().getShipsAlive() == 0) {
         std::cout << "You lose!" << std::endl;
-        this->isBotWin = true;
+        for (const auto& observer : this->observers) {
+            observer->botWin();
+        }
+        this->resetGame();
     }
     return;
 }
@@ -127,30 +138,8 @@ void Game::resetGame() {
     this->bot = Bot(newShips, newField);
 }
 
-void Game::isGameEnded() {
-    if (!this->isPlayerWin && !this->isBotWin) {
-        this->gameEnder = false;
-        return;
-    }
-
-    std::cout << "Do you want to continue playing? y/n" << std::endl;
-    std::string line;
-    std::cin >> line;
-    if (line == "n" || line == "N") {
-        this->gameEnder = true;
-        return;
-    }
-
-    if (this->isPlayerWin) {
-        resetBot();
-        this->isPlayerWin = false;
-        painter.printFields(bot.getField(), player.getField());
-    }
-    if (this->isBotWin) {
-        resetGame(); 
-        this->isBotWin = false;
-        painter.printFields(bot.getField(), player.getField());
-    }
+void Game::addObserver(Observer* observer) {
+    this->observers.push_back(observer);
 }
 
 void Game::loadGame() {

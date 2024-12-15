@@ -1,6 +1,7 @@
 #include "../include/Game.hpp"
 #include "../include/GameController.hpp"
 #include "../include/InputHandler.hpp"
+#include "../include/Setup.hpp"
 
 int main() {
     Painter painter = Painter();
@@ -46,6 +47,16 @@ int main() {
     Game game = Game(player, bot, gameState, painter);
 
     InputHandler inputHandler = InputHandler();
+    Setup setup = Setup(inputHandler);
+    try {
+        setup.deserializeSetup();
+    } catch (std::exception& e) {
+        painter.printException(e);
+    }
+
+    OutputObserver<Painter>* outputObserver = new OutputObserver<Painter>(painter);
+    game.addObserver(outputObserver);
+
     GameController<InputHandler, Painter> gameController = GameController<InputHandler, Painter>(game, gameState, inputHandler, painter);
     gameController.run();
     return 0;
