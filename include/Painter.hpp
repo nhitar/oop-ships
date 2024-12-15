@@ -12,6 +12,7 @@ class Painter {
     public:
         void printLogo(const std::string& filename) const;
         void printException(std::exception& e) const;
+        void printString(std::string data) const;
         void printAbilityName(std::string name) const;
         void printAbilityNames(AbilityManager abilityManager) const;
         void printShip(Ship ship) const;

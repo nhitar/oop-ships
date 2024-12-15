@@ -22,6 +22,10 @@ void Painter::printException(std::exception& e) const {
     std::cerr << "\033[1;31m" <<  "Exception: " << e.what() << "\033[0m" << std::endl;
 }
 
+void Painter::printString(std::string data) const {
+    std::cout << data << std::endl;
+}
+
 void Painter::printAbilityName(std::string name) const {
     std::cout << name << std::endl;
 }

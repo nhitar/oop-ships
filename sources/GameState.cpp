@@ -106,5 +106,4 @@ void GameState::saveGame() {
     std::ofstream ofs("/home/nhitar/oop-ships/savefile.json", std::ofstream::out | std::ofstream::trunc);
     Wrapper fileWrapper("/home/nhitar/oop-ships/savefile.json");
     fileWrapper << *this;
-
 }

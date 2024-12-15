@@ -13,22 +13,26 @@ template <class Output>
 class OutputObserver : public Observer {
     private:
         Output& output;
+        GameState& gameState;
     public:
-        OutputObserver(Output& output) : output(output) {};
+        OutputObserver(Output& output, GameState& gameState) : output(output), gameState(gameState) {};
 
         void abilityUsed() override {
-            std::cout << "Ability used." << std::endl;
+            output.printString("Ability used.");
+            output.printFields(gameState.getBot().getField(), gameState.getPlayer().getField());
+            output.printAbilityNames(gameState.getPlayer().getAbilityManager());
         }
 
         void turnEnded() override {
-            std::cout << "Turn ended." << std::endl;
+            output.printString("Turn ended.");
+            output.printFields(gameState.getBot().getField(), gameState.getPlayer().getField());
         }
 
         void playerWin() override {
-            std::cout << "Player wins!" << std::endl;
+            output.printString("Player wins.");
         }
 
         void botWin() override {
-            std::cout << "Bot wins!" << std::endl;
+            output.printString("Bot wins.");
         }
 };

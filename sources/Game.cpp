@@ -9,32 +9,19 @@ void Game::usePlayerAbility() {
     Coordinate coordinate = {-1, -1};
     AbilityParameters ap(player.getField(), player.getShipManager(), coordinate, gameState.getCurrentDamage());
     player.getAbilityManager().checkIfEmpty();
-    try {
-        if (player.getAbilityManager().getCreator(0).isUsingCoordinate()) {
-            ap.coordinate = gameState.getCoordinate();
-        }
-        player.getAbilityManager().useAbility(ap);
+    if (player.getAbilityManager().getCreator(0).isUsingCoordinate()) {
+        ap.coordinate = gameState.getCoordinate();
     }
-    catch (RevealedCellAttackException& e) {
-        player.getAbilityManager().popAbility();
-    }
+    player.getAbilityManager().useAbility(ap);
     this->gameState.setIsAbilityUsed(true);
 }
 
 void Game::doPlayerAttack() {
-    int x, y;
     int successAttack = false;
     while (true) {
-        try {
-            std::cin >> x >> y;
-            if (std::cin.fail()) {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                throw InvalidCoordinateException();
-            }
-            
+        try {     
             for (int i = 0; i < gameState.getCurrentDamage(); i++) {
-                player.getField().attack({x, y});
+                player.getField().attack(gameState.getCoordinate());
                 successAttack = true;
             }
         }
@@ -57,12 +44,11 @@ void Game::doPlayerAttack() {
     }
     this->gameState.setCurrentDamage(1);
 
-    Ship* enemyShip = player.getShipManager().getShipByCoordinate({x, y});
+    Ship* enemyShip = player.getShipManager().getShipByCoordinate(gameState.getCoordinate());
     if (enemyShip != nullptr && enemyShip->isDestroyed()) {
         player.getField().revealCoordinatesAround(enemyShip);
         player.getShipManager().setShipsAlive(player.getShipManager().getShipsAlive() - 1);
-        
-        std::cout << "Ability added." << std::endl;
+        painter.printString("Ability added.");
         player.getAbilityManager().giveRandomAbility();
     }
 
