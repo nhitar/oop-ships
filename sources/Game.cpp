@@ -18,27 +18,18 @@ void Game::usePlayerAbility() {
 
 void Game::doPlayerAttack() {
     int successAttack = false;
-    while (true) {
-        try {     
+    while (!successAttack) {
+        try {
             for (int i = 0; i < gameState.getCurrentDamage(); i++) {
                 player.getField().attack(gameState.getCoordinate());
                 successAttack = true;
             }
         }
-        catch (InvalidCoordinateException& e) {
-            painter.printException(e);
-            continue;
-        }
         catch (RevealedCellAttackException& e) {
             if (successAttack) {
                 break;
             }
-            painter.printException(e);
-            continue;
-        }
-        catch (OutOfRangeException& e) {
-            painter.printException(e);
-            continue;
+            throw RevealedCellAttackException();
         }
         break;
     }
@@ -63,16 +54,8 @@ void Game::doPlayerAttack() {
 }
 
 void Game::doBotAttack() {
-    Coordinate coords = {-1, -1};
-    try {
-        coords = bot.getField().attackRandomly();
-    }
-    catch (MultipleMissesException& e) {
-        painter.printException(e);
-        return;
-    }
-    
-    Ship* selfShip = bot.getShipManager().getShipByCoordinate(coords);
+    Coordinate coordinate = bot.getField().attackRandomly();
+    Ship* selfShip = bot.getShipManager().getShipByCoordinate(coordinate);
     if (selfShip != nullptr && selfShip->isDestroyed()) {
         bot.getField().revealCoordinatesAround(selfShip);
         bot.getShipManager().setShipsAlive(bot.getShipManager().getShipsAlive() - 1);

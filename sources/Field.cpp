@@ -9,10 +9,8 @@ Field::Field(int rows, int columns) : rows(rows), columns(columns) {
     }
 }
 
-// КОПИРУЮЩИЙ КОНСТРУКТОР
 Field::Field(const Field& other) : rows(other.rows), columns(other.columns), field(other.field) {}
 
-// КОПИРУЮЩИЙ ОПЕРАТОР ПРИСВАИВАНИЯ
 Field& Field::operator=(const Field& other) {
     if (this != &other) {
         rows = other.rows;
@@ -22,14 +20,12 @@ Field& Field::operator=(const Field& other) {
     return *this;
 }
 
-// ПЕРЕМЕЩАЮЩИЙ КОНСТРУКТОР
 Field::Field(Field&& other) : rows(other.rows), columns(other.columns), field(std::move(other.field)){
     other.rows = 0;
     other.columns = 0;
     other.field.clear();
 }
 
-// ПЕРЕМЕЩАЮЩИЙ ОПЕРАТОР ПРИСВАИВАНИЯ
 Field& Field::operator=(Field&& other) {
     if (this != &other) {
         rows = other.rows;
@@ -209,22 +205,12 @@ Coordinate Field::attackRandomly() {
     std::uniform_int_distribution<> disY(0, rows - 1);
     std::mt19937 gen(rd());
     
-    int j = 0;
     while(true) {
         int randomX = disX(gen);
         int randomY = disY(gen);
         
-        try {
-            if (!this->checkCoordinates({randomX, randomY}) && this->attack({randomX, randomY})) {
-                return {randomX, randomY};
-            }
-        }
-        catch (RevealedCellAttackException& e) {
-            j++;
-            if (j > 100000) {
-                throw MultipleMissesException();
-            }
-            continue;
+        if (!this->checkCoordinates({randomX, randomY}) && this->attack({randomX, randomY})) {
+            return {randomX, randomY};
         }
     }
 }
