@@ -50,7 +50,6 @@ void Game::doPlayerAttack() {
         this->resetBot();
     }
     this->gameState.setIsAbilityUsed(false);
-    return;
 }
 
 void Game::doBotAttack() {
@@ -71,7 +70,6 @@ void Game::doBotAttack() {
         }
         this->resetGame();
     }
-    return;
 }
 
 void Game::resetBot() {

@@ -99,7 +99,7 @@ void Deserialization::from_json(std::map<char, Command>& newCommands) {
         }
     }
 
-    if (newCommands.size() != 6) {
+    if (values.size() != 6) {
         throw std::invalid_argument("Incorrect number of commands.");
     }
 }
