@@ -28,7 +28,6 @@ class Game {
         void doPlayerAttack();
         void doBotAttack();
 
-        // void startGame();
         void resetBot();
         void resetGame();
 

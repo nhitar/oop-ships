@@ -208,9 +208,12 @@ Coordinate Field::attackRandomly() {
     while(true) {
         int randomX = disX(gen);
         int randomY = disY(gen);
-        
-        if (!this->checkCoordinates({randomX, randomY}) && this->attack({randomX, randomY})) {
-            return {randomX, randomY};
+        try {
+            if (!this->checkCoordinates({randomX, randomY}) && this->attack({randomX, randomY})) {
+                return {randomX, randomY};
+            }
+        } catch (std::exception& e) {
+            continue;
         }
     }
 }
